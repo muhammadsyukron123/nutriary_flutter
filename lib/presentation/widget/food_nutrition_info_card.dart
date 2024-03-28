@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../data/model/food_nutrition_info_model.dart';
+import '../../data/model/nutrition/food_nutrition_info_model.dart';
 
 class FoodNutritionInfoCard extends StatelessWidget {
   final FoodNutritionInfo foodNutritionInfo;
@@ -24,7 +24,7 @@ class FoodNutritionInfoCard extends StatelessWidget {
           child: Column(
             children: [
               ListTile(
-                title: Text(foodNutritionInfo.foodName),
+                title: Text(foodNutritionInfo.foodName, style: TextStyle(fontWeight: FontWeight.bold)),
                 subtitle: Text('Energy: ${foodNutritionInfo.energyKal} kCal')
               )
             ],

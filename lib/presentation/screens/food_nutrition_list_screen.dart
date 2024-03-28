@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../data/model/food_nutrition_info_model.dart';
+import '../../data/model/nutrition/food_nutrition_info_model.dart';
 import '../../domain/usecases/get_all_food_nutrition_info.dart';
 import '../widget/food_nutrition_info_card.dart';
 

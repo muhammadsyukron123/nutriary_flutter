@@ -1,15 +1,15 @@
 import 'dart:convert';
 import 'dart:html';
 
-import 'package:nutriary_flutter/data/model/food_nutrition_info_model.dart';
+import 'package:nutriary_flutter/data/model/nutrition/food_nutrition_info_model.dart';
 import 'package:http/http.dart' as http;
 
-class RemoteDataSource {
+class NutritionRemoteDataSource {
   final String baseUrl =
-      'https://app.actualsolusi.com/bsi/Nutriary/api/FoodNutrition/GetAllFoodNutritionInfo/';
+      'https://app.actualsolusi.com/bsi/Nutriary/api/';
 
   Future<List<FoodNutritionInfo>> getAllFoodNutrition() async {
-    var response = await http.get(Uri.parse(baseUrl));
+    var response = await http.get(Uri.parse(baseUrl + 'FoodNutrition/GetAllFoodNutritionInfo/'));
     //print response.statusCode in console
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);

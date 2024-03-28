@@ -1,10 +1,11 @@
-import 'package:nutriary_flutter/data/datasource/remote_datasource.dart';
+import 'package:nutriary_flutter/data/datasource/nutrition_remote_datasource.dart';
 
-import 'model/food_nutrition_info_model.dart';
+import 'model/nutrition/food_nutrition_info_model.dart';
+
 
 class Repository{
 
-  var remoteDataSource = RemoteDataSource();
+  var remoteDataSource = NutritionRemoteDataSource();
 
   Future<List<FoodNutritionInfo>> getAllFoodNutrition() async {
     try {

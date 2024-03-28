@@ -1,8 +1,8 @@
 import 'package:nutriary_flutter/domain/entities/food_nutrition_info_entity.dart';
 
 import '../../data/Repository.dart';
-import '../../data/datasource/remote_datasource.dart';
-import '../../data/model/food_nutrition_info_model.dart';
+import '../../data/datasource/nutrition_remote_datasource.dart';
+import '../../data/model/nutrition/food_nutrition_info_model.dart';
 
 class GetAllFoodNutritionInfo{
   var repository = Repository();
