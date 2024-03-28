@@ -27,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     return Scaffold(
       appBar: AppBar(
         title: Text('Nutriary'),
+        centerTitle: true,
         bottom: TabBar(
           controller: _tabController,
           tabs: [

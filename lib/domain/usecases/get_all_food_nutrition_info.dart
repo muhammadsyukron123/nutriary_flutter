@@ -7,7 +7,7 @@ import '../../data/model/food_nutrition_info_model.dart';
 class GetAllFoodNutritionInfo{
   var repository = Repository();
 
-  Future<List<FoodNutritionInfo>> execute() async {
+  Future<List<FoodNutritionInfo>> execute({required lastItem}) async {
     try {
       final List<FoodNutritionInfo> foodNutritionList = await repository.getAllFoodNutrition();
       return foodNutritionList;

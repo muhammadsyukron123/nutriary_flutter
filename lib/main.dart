@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nutriary_flutter/presentation/screens/home_screen.dart';
+import 'package:nutriary_flutter/presentation/screens/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,10 +15,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Nutriary Flutter',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: HomeScreen(),
+
+      home: SplashScreen(),
     );
   }
 }
