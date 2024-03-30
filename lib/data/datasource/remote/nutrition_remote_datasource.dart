@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:html';
 
 import 'package:nutriary_flutter/data/model/nutrition/food_nutrition_info_model.dart';
 import 'package:http/http.dart' as http;

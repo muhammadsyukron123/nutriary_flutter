@@ -7,8 +7,6 @@ import 'food_nutrition_list_screen.dart';
 class HomeScreen extends StatefulWidget {
   var getAllFoodNutritionInfo = GetAllFoodNutritionInfo();
 
-  // const HomeScreen({super.key});
-
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -39,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       body: TabBarView(
         controller: _tabController,
         children: [
-          FoodNutritionInfoList(getAllFoodNutritionInfo: widget.getAllFoodNutritionInfo),
+          FoodNutritionInfoList(),
           FoodLogScreen()
         ],
       ),

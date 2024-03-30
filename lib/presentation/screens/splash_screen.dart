@@ -1,10 +1,12 @@
 import 'dart:async';
-import 'dart:js';
 
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:lottie/lottie.dart';
+import 'package:nutriary_flutter/presentation/screens/dashboard_screen.dart';
+import 'package:nutriary_flutter/presentation/screens/login_screen.dart';
 
-import 'home_screen.dart';
+import '../../data/model/user/user.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -12,40 +14,41 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future.delayed(Duration(seconds: 3), () {
-      Navigator.pushAndRemoveUntil(
+      Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomeScreen()),
-            (route) => false,
+        MaterialPageRoute(builder: (context) => LoginScreen()),
       );
     });
+
     return Scaffold(
-      body: ListView(
-        children: [
-          Container(
-            height: 200,
-            child: Center(
-              child: Text('Nutriary',
-                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
-            ),
-          ),
-          Container(
-            height: 200,
-            child: Center(
-              child: Lottie.asset('assets/lottie/nutrition_lottie.json'),
-            ),
-          ),
-          Container(
-            height: 200,
-            child: Center(
-              child: CircularProgressIndicator(
+      body: Center( // Add this
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center, // And this
+          children: [
+            Container(
+              height: 200,
+              child: Center(
+                child: Text('Nutriary',
+                    style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
               ),
             ),
-          )
-        ],
+            Container(
+              height: 200,
+              child: Center(
+                child: Lottie.asset('assets/lottie/nutrition_lottie.json'),
+              ),
+            ),
+            Container(
+              height: 200,
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
 }
-
 
 
