@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hive/hive.dart';
+import 'package:nutriary_flutter/presentation/screens/user_register_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/model/user/user.dart';
@@ -29,15 +30,18 @@ class LoginScreen extends StatelessWidget {
 
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 30),
-        child: ListView(
-          padding: EdgeInsets.symmetric(vertical: 200),
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SvgPicture.asset('assets/images/letter-n.svg',
                 height: 100, width: 100),
-            Text('Welcome to Nutriary',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            Text('Welcome to Nutriary 👋',
+                textAlign: TextAlign.left,
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold) ),
             Text('You should login first',
+                textAlign: TextAlign.left,
                 style: TextStyle(fontSize: 16, color: Colors.grey)),
             SizedBox(height: 20),
             TextField(
@@ -63,22 +67,48 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
-            ElevatedButton(
-                onPressed: () async {
-                  await Provider.of<AuthProvider>(context, listen: false).login(
-                    context,
-                    _usernameController.text,
-                    _passwordController.text,
-                  );
-                  // Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
-                },
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10))),
-                  backgroundColor: MaterialStateProperty.all(Colors.indigo),
-                ),
-                child: Text('Login',
-                    style: TextStyle(color: Colors.white, fontSize: 16))),
+            Container(
+              height: 50,
+              width: double.infinity,
+              child: ElevatedButton(
+                  onPressed: () async {
+                    FutureBuilder(
+                      future: Provider.of<AuthProvider>(context, listen: false).login(
+                        context,
+                        _usernameController.text,
+                        _passwordController.text,
+                      ),
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Stack(
+                            children: <Widget>[
+                              Opacity(
+                                opacity: 0.3,
+                                child: const ModalBarrier(dismissible: false, color: Colors.grey),
+                              ),
+                              Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            ],
+                          );
+                        } else {
+                          if (snapshot.hasError)
+                            return Text('Error: ${snapshot.error}');
+                          else
+                            return Container(); // widget to return when future completes
+                        }
+                      },
+                    );
+                    // Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+                  },
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5))),
+                    backgroundColor: MaterialStateProperty.all(Colors.indigo),
+                  ),
+                  child: Text('Login',
+                      style: TextStyle(color: Colors.white, fontSize: 16))),
+            ),
             SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -86,7 +116,10 @@ class LoginScreen extends StatelessWidget {
                 Text('Don\'t have an account?'),
                 TextButton(
                   onPressed: () {
-                    // Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterScreen()));
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => UserRegisterScreen()),
+                    );
                   },
                   child: Text('Register', style: TextStyle(color: Colors.blue)),
                 ),

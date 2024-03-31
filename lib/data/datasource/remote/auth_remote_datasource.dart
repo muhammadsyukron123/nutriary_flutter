@@ -31,7 +31,6 @@ class AuthRemoteDataSource{
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
       AuthModel authModel = AuthModel.fromJson(data);
-
       // Store the user login information in the Hive box
       final box = Hive.box<User>('userBox');
       User user = User(

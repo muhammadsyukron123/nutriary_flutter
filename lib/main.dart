@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:nutriary_flutter/presentation/provider/auth_provider.dart';
 import 'package:nutriary_flutter/presentation/provider/food_nutrition_provider.dart';
+import 'package:nutriary_flutter/presentation/provider/profile_provider.dart';
+import 'package:nutriary_flutter/presentation/provider/user_register_provider.dart';
 import 'package:nutriary_flutter/presentation/screens/home_screen.dart';
 import 'package:nutriary_flutter/presentation/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +29,9 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => GetAllFoodNutritionProvider()),
+        ChangeNotifierProvider(create: (_) => UserRegisterProvider()),
         ChangeNotifierProvider(create: (_) => AuthProvider(LoginUsecase())),
+        ChangeNotifierProvider(create: (_) => ProfileProvider()),
       ],
           child: MaterialApp(
           title: 'Nutriary',

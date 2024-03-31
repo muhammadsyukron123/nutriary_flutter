@@ -39,4 +39,5 @@ class ConsumptionLogRemoteDataSource{
       throw Exception('User not logged in');
     }
   }
+  
 }

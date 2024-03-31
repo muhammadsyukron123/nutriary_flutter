@@ -30,7 +30,7 @@ class AuthProvider extends ChangeNotifier {
     try {
       AuthModel authModel = await _loginUsecase.login(email, password);
       if (authModel.userId != null) {
-        WidgetsBinding.instance!.addPostFrameCallback((_) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => DashboardScreen()),
@@ -44,7 +44,7 @@ class AuthProvider extends ChangeNotifier {
     } catch (e) {
       print(e);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('An error occurred during login')),
+        SnackBar(content: Text('Invalid Credentials')),
       );
     }
     notifyListeners();
