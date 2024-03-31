@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nutriary_flutter/data/model/profile/create_user_profile_model.dart';
+import 'package:nutriary_flutter/presentation/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/profile_provider.dart';
@@ -227,7 +228,7 @@ class CreateProfileScreen extends StatelessWidget {
                                 targetGoalId: _selectedGoal!['id'],
                               );
                               await Provider.of<ProfileProvider>(context, listen: false).insertUserProfile(createProfile);
-                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
                             }
                             else {
                               ScaffoldMessenger.of(context).showSnackBar(

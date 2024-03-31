@@ -1,45 +1,59 @@
 import 'package:flutter/material.dart';
-import 'package:nutriary_flutter/domain/usecases/get_all_food_nutrition_info.dart';
-
-import 'food_log_screen.dart';
-import 'food_nutrition_list_screen.dart';
+import 'package:nutriary_flutter/presentation/screens/dashboard_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  var getAllFoodNutritionInfo = GetAllFoodNutritionInfo();
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
-  late TabController _tabController;
+class _HomeScreenState extends State<HomeScreen> {
+  int _selectedIndex = 0;
 
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+  static const List<Widget> _widgetOptions = <Widget>[
+    DashboardScreen(),
+    Text('Add Page'),
+    Text('Report Page'),
+    Text('User Page'),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Nutriary'),
-        centerTitle: true,
-        bottom: TabBar(
-          controller: _tabController,
-          tabs: [
-            Tab(text: 'FoodNutritionList'),
-            Tab(text: 'Food log')
-          ],
-        ),
+      body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
       ),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          FoodNutritionInfoList(),
-          FoodLogScreen()
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Dashboard',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.edit_note),
+            label: 'Add',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.bar_chart),
+            label: 'Report',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'User',
+          ),
         ],
+        currentIndex: _selectedIndex,
+        unselectedItemColor: Colors.grey,
+        selectedIconTheme: IconThemeData(color: Colors.indigoAccent),
+        selectedItemColor: Colors.indigoAccent,
+        onTap: _onItemTapped,
       ),
     );
   }

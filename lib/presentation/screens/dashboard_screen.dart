@@ -67,10 +67,10 @@ class DashboardScreen extends StatelessWidget {
         padding: const EdgeInsets.all(20.0),
         child: ListView(
           children: [
-            Container(
-              child: Text('Welcome to Nutriary, ${user?.firstName} ${user?.lastName}',
-                  style: TextStyle(fontSize: 20)),
-            ),
+            Text('Welcome to Nutriary 🍀',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            Text('${user?.firstName} ${user?.lastName}',
+            )
           ],
         ),
       ),

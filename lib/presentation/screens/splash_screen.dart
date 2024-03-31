@@ -33,9 +33,9 @@ class SplashScreen extends StatelessWidget {
               ),
             ),
             Container(
-              height: 200,
+              height: 300,
               child: Center(
-                child: Lottie.asset('assets/lottie/nutrition_lottie.json'),
+                child: Lottie.asset('assets/lottie/splash_animation.json'),
               ),
             ),
             Container(

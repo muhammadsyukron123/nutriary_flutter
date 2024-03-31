@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hive/hive.dart';
+import 'package:lottie/lottie.dart';
 import 'package:nutriary_flutter/presentation/screens/user_register_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +20,7 @@ class LoginScreen extends StatelessWidget {
       WidgetsBinding.instance!.addPostFrameCallback((_) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => DashboardScreen()),
+          MaterialPageRoute(builder: (context) => HomeScreen()),
         );
       });
     }
@@ -32,11 +33,11 @@ class LoginScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SvgPicture.asset('assets/images/letter-n.svg',
-                height: 100, width: 100),
+            Lottie.asset('assets/lottie/nutrition_lottie.json',
+                height: 400, width: 400),
             Text('Welcome to Nutriary 👋',
                 textAlign: TextAlign.left,
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold) ),

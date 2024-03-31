@@ -7,6 +7,7 @@ import 'package:nutriary_flutter/data/model/user/user.dart';
 import 'package:flutter/foundation.dart';
 import 'package:nutriary_flutter/data/repository/auth_repository.dart';
 import 'package:nutriary_flutter/data/model/user/user.dart';
+import 'package:nutriary_flutter/presentation/screens/home_screen.dart';
 
 import '../../data/model/auth/auth_reponse_model.dart';
 import '../../data/model/user/auth_model.dart';
@@ -33,7 +34,7 @@ class AuthProvider extends ChangeNotifier {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => DashboardScreen()),
+            MaterialPageRoute(builder: (context) => HomeScreen()),
           );
         });
       } else {
