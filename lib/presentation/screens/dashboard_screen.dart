@@ -38,10 +38,8 @@ class DashboardScreen extends StatelessWidget {
           children: [
             Text('Welcome to Nutriary 🍀',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-            Text(
-              '${user?.firstName} ${user?.lastName}',
-              style: TextStyle(fontSize: 20)
-            ),
+            Text('${user?.firstName} ${user?.lastName}',
+                style: TextStyle(fontSize: 20)),
             SizedBox(height: 20),
             Consumer<SummaryProvider>(
                 builder: (context, summaryProvider, child) {
@@ -50,44 +48,51 @@ class DashboardScreen extends StatelessWidget {
               var summary = summaryBox.getAt(0);
               if (summary == null) {
                 return Center(child: CircularProgressIndicator());
-              }
-              else{
+              } else {
                 return GridView.count(
                   crossAxisCount: 3,
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   children: [
                     Container(
-                      height: 100,
                       child: Card(
-                        child: ListTile(
-                          title: Text('Today\'s \nIntake 🍽',
-                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)
-                          ),
-                          subtitle: Text('${summary?.consumedCalories} kcal', style: TextStyle(fontSize: 16),),
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('Your Calorie \nConsumption 🍽',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold)),
+                              Text('${summary?.consumedCalories} kcal',
+                                  style: TextStyle(fontSize: 16)),
+                            ]),
+                      ),
+                    ),
+                    Container(
+                      child: Card(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('Remaining Calorie 🔥',
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold)),
+                            Text('${summary?.remainingCalories} kcal',
+                                style: TextStyle(fontSize: 16)),
+                          ],
                         ),
                       ),
                     ),
                     Container(
-                      height: 100,
                       child: Card(
-                        child: ListTile(
-                          title: Text('Remaining \nCalorie 🔥',
-                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)
-                          ),
-                          subtitle: Text('${summary?.remainingCalories} kcal', style: TextStyle(fontSize: 16)),
-
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 100,
-                      child: Card(
-                        child: ListTile(
-                          title: Text('Calorie \nLimit 🏋️‍♂️',
-                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)
-                          ),
-                          subtitle: Text('${summary?.bmr} kcal', style: TextStyle(fontSize: 16)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('Calorie Limit 🏋️‍♂️',
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold)),
+                            Text('${summary?.bmr} kcal',
+                                style: TextStyle(fontSize: 16)),
+                          ]
                         ),
                       ),
                     ),
