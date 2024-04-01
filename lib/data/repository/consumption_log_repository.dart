@@ -1,4 +1,4 @@
-import 'dart:ffi';
+
 
 import 'package:nutriary_flutter/data/datasource/remote/consumption_log_remote_datasource.dart';
 import 'package:nutriary_flutter/data/model/foodlog/consumption_log_model.dart';
@@ -8,7 +8,7 @@ class ConsumptionLogRepository {
 
 
 
-  Future<List<ConsumptionLog>> getConsumptionLogsByID(Int id, DateTime logDate) async {
+  Future<List<ConsumptionLog>> getConsumptionLogsByID(int id, DateTime logDate) async {
     return _consumptionLogDataSource.getFoodLogByID(id, logDate);
   }
 

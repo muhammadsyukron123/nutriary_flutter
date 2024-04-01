@@ -2,17 +2,17 @@ class ConsumptionLog {
   int userId;
   String foodId;
   int logId;
-  int quantity;
-  DateTime logDate;
+  double quantity;
+  String logDate;
   String foodName;
-  int energyKal;
+  double energyKal;
   double proteinG;
   double fatG;
   double carbsG;
   double fiberG;
-  int calciumMg;
+  double calciumMg;
   double feMg;
-  int natriumMg;
+  double natriumMg;
 
   ConsumptionLog({
     required this.userId,

@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:nutriary_flutter/data/datasource/local/summary_today_hive_datasource.dart';
 import 'package:nutriary_flutter/presentation/provider/auth_provider.dart';
+import 'package:nutriary_flutter/presentation/provider/consumption_log_provider.dart';
 import 'package:nutriary_flutter/presentation/provider/food_nutrition_provider.dart';
 import 'package:nutriary_flutter/presentation/provider/profile_provider.dart';
 import 'package:nutriary_flutter/presentation/provider/summary_provider.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AuthProvider(LoginUsecase())),
         ChangeNotifierProvider(create: (_) => ProfileProvider()),
         ChangeNotifierProvider(create: (_) => SummaryProvider()),
+        ChangeNotifierProvider(create: (_) => ConsumptionLogProvider())
       ],
           child: GetMaterialApp(
           title: 'Nutriary',

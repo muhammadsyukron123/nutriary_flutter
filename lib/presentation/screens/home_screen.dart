@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nutriary_flutter/presentation/screens/account_screen.dart';
 import 'package:nutriary_flutter/presentation/screens/dashboard_screen.dart';
+import 'package:nutriary_flutter/presentation/screens/food_log_screen.dart';
 import 'package:nutriary_flutter/presentation/screens/food_nutrition_list_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,7 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   static List<Widget> _widgetOptions = <Widget>[
     DashboardScreen(),
-    Text('Add Page'),
+    FoodLogScreen(),
     FoodNutritionInfoList(),
     AccountScreen(),
   ];
