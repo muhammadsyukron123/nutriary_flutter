@@ -1,44 +1,44 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user.dart';
+part of 'summary_today_hive_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class UserAdapter extends TypeAdapter<User> {
+class SummaryHiveModelAdapter extends TypeAdapter<SummaryHiveModel> {
   @override
-  final int typeId = 0;
+  final int typeId = 1;
 
   @override
-  User read(BinaryReader reader) {
+  SummaryHiveModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return User(
+    return SummaryHiveModel(
       userId: fields[0] as int?,
-      username: fields[1] as String?,
-      firstName: fields[2] as String?,
-      lastName: fields[3] as String?,
-      token: fields[4] as String?,
+      logDate: fields[1] as DateTime,
+      bmr: fields[2] as double,
+      consumedCalories: fields[3] as double,
+      remainingCalories: fields[4] as double,
     );
   }
 
   @override
-  void write(BinaryWriter writer, User obj) {
+  void write(BinaryWriter writer, SummaryHiveModel obj) {
     writer
       ..writeByte(5)
       ..writeByte(0)
       ..write(obj.userId)
       ..writeByte(1)
-      ..write(obj.username)
+      ..write(obj.logDate)
       ..writeByte(2)
-      ..write(obj.firstName)
+      ..write(obj.bmr)
       ..writeByte(3)
-      ..write(obj.lastName)
+      ..write(obj.consumedCalories)
       ..writeByte(4)
-      ..write(obj.token);
+      ..write(obj.remainingCalories);
   }
 
   @override
@@ -47,7 +47,7 @@ class UserAdapter extends TypeAdapter<User> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is UserAdapter &&
+      other is SummaryHiveModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

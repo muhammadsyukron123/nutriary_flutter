@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:hive/hive.dart';
 import 'package:nutriary_flutter/data/repository/auth_repository.dart';
 import 'package:nutriary_flutter/data/model/user/user.dart';
@@ -31,11 +33,8 @@ class AuthProvider extends ChangeNotifier {
     try {
       AuthModel authModel = await _loginUsecase.login(email, password);
       if (authModel.userId != null) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => HomeScreen()),
-          );
+        WidgetsBinding.instance!.addPostFrameCallback((_) {
+          Get.off(() => HomeScreen());
         });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:nutriary_flutter/presentation/screens/account_screen.dart';
 import 'package:nutriary_flutter/presentation/screens/dashboard_screen.dart';
+import 'package:nutriary_flutter/presentation/screens/food_nutrition_list_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -11,11 +13,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
-  static const List<Widget> _widgetOptions = <Widget>[
+  static List<Widget> _widgetOptions = <Widget>[
     DashboardScreen(),
     Text('Add Page'),
-    Text('Report Page'),
-    Text('User Page'),
+    FoodNutritionInfoList(),
+    AccountScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -45,8 +47,8 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Report',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'User',
+            icon: Icon(Icons.account_circle_rounded),
+            label: 'Account',
           ),
         ],
         currentIndex: _selectedIndex,

@@ -3,7 +3,7 @@ import 'package:hive_flutter/adapters.dart';
 
 import '../../model/user/user.dart';
 
-class HiveDataSource{
+class UserHiveDataSource{
   Future<void> init() async {
     await Hive.initFlutter();
     Hive.registerAdapter(UserAdapter());

@@ -2,15 +2,17 @@ import 'dart:convert';
 
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
+import 'package:nutriary_flutter/data/datasource/remote/consumption_summary_remote_datasource.dart';
 import 'package:nutriary_flutter/data/model/user/auth_model.dart';
 
 import '../../model/auth/auth_reponse_model.dart';
 import '../../model/user/user.dart';
-import '../local/hive_datasource.dart';
+import '../local/user_hive_datasource.dart';
 
 
 class AuthRemoteDataSource{
-  HiveDataSource hiveDataSource = HiveDataSource();
+  UserHiveDataSource hiveDataSource = UserHiveDataSource();
+  ConsumptionSummaryRemoteDataSource consumptionSummaryRemoteDataSource = ConsumptionSummaryRemoteDataSource();
 
   final String baseUrl = 'https://app.actualsolusi.com/bsi/Nutriary/api/';
 
@@ -18,7 +20,8 @@ class AuthRemoteDataSource{
     var response = await http.post(Uri.parse(baseUrl + 'Users/Login'),
         headers: {
           'accept': 'application/json',
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
         },
         body: jsonEncode({
           'username': username,

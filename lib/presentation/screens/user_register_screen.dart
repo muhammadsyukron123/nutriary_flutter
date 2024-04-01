@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:nutriary_flutter/domain/entities/user_register_entity.dart';
 import 'package:nutriary_flutter/presentation/provider/user_register_provider.dart';
 import 'package:nutriary_flutter/presentation/screens/create_profile_screen.dart';
@@ -187,7 +189,9 @@ class UserRegisterScreen extends StatelessWidget {
                               lastname: _lastNameController.text
                           );
                           await Provider.of<UserRegisterProvider>(context, listen: false).register(userRegisterEntity);
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CreateProfileScreen()));
+                          WidgetsBinding.instance!.addPostFrameCallback((_) {
+                            Get.offAll(() => CreateProfileScreen());
+                          });
                         }
                         else {
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -211,10 +215,7 @@ class UserRegisterScreen extends StatelessWidget {
                     TextButton(
                       onPressed: () {
                         WidgetsBinding.instance!.addPostFrameCallback((_) {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(builder: (context) => LoginScreen()),
-                          );
+                          Get.to(LoginScreen());
                         });
                       },
                       child: Text('Login', style: TextStyle(color: Colors.blue)),

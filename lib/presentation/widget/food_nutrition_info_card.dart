@@ -9,26 +9,35 @@ class FoodNutritionInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => FoodNutritionDetailScreen(),
-        //   ),
-        // );
-      },
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              ListTile(
-                title: Text(foodNutritionInfo.foodName, style: TextStyle(fontWeight: FontWeight.bold)),
-                subtitle: Text('Energy: ${foodNutritionInfo.energyKal} kCal')
-              )
-            ],
-          ),
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            ExpansionTile(
+              title: Text(foodNutritionInfo.foodName, style: TextStyle(fontWeight: FontWeight.bold)),
+              trailing: Text('Energy: ${foodNutritionInfo.energyKal} kCal'),
+              expandedAlignment: Alignment.centerLeft,
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Protein: ${foodNutritionInfo.proteinG} g'),
+                      Text('Fat: ${foodNutritionInfo.fatG} g'),
+                      Text('Carbohydrate: ${foodNutritionInfo.carbsG} g'),
+                      Text('Fiber: ${foodNutritionInfo.fiberG} g'),
+                      Text('Iron: ${foodNutritionInfo.feMg} mg'),
+                      Text('Calcium: ${foodNutritionInfo.calciumMg} mg'),
+                      Text('Natrium: ${foodNutritionInfo.natriumMg} mg'),
+                    ],
+                  ),
+                )
+
+              ],
+            )
+          ],
         ),
       ),
     );
