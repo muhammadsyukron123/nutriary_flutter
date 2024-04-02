@@ -55,11 +55,20 @@ class AccountScreen extends StatelessWidget {
                         TextButton(
                           onPressed: () {
                             WidgetsBinding.instance!.addPostFrameCallback((_) async {
+                              showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (BuildContext context) {
+                                  return Center(child: CircularProgressIndicator());
+                                },
+                              );
                               await userBox.clear();
                               await summaryBox.clear();
                               Provider.of<BottomNavigationProvider>(context, listen: false).resetIndex();
                               Provider.of<ConsumptionLogProvider>(context, listen: false).clearData();
                               Get.offAll(LoginScreen());
+                              Get.deleteAll();
+                              Get.snackbar('Logout', 'You have been logged out', backgroundColor: Colors.indigo, colorText: Colors.white);
                             });
 
                           },

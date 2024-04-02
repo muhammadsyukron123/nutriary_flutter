@@ -7,7 +7,7 @@ import '../model/summary/summary_today_hive_model.dart';
 class SummaryRepository{
   var _summaryRemoteDataSource = ConsumptionSummaryRemoteDataSource();
 
-  Future<ConsumptionSummary> getConsumptionSummaryToday(int UserId) async{
+  Future<CalorieSummary> getCalorieSummaryToday(int UserId) async{
     try {
       var result = await _summaryRemoteDataSource.getConsumptionSummaryToday(UserId);
       SummaryHiveModel summaryHiveModel = SummaryHiveModel(
@@ -19,15 +19,25 @@ class SummaryRepository{
       );
       var summaryBox = Hive.box<SummaryHiveModel>('summaryBox');
       summaryBox.put('summary', summaryHiveModel);
-      return _summaryRemoteDataSource.getConsumptionSummaryToday(UserId);
+      return result;
     } catch (e) {
       throw e;
     }
   }
 
-  Future<ConsumptionSummary> getConsumptionSummaryByDate(int UserId, DateTime date) async{
+  Future<CalorieSummary> getCalorieSummaryByDate(int UserId, DateTime date) async{
     try {
-      return _summaryRemoteDataSource.getConsumptionSummaryByDate(UserId, date);
+      var result = await _summaryRemoteDataSource.getCalorieSummaryByDate(UserId, date);
+      SummaryHiveModel summaryHiveModel = SummaryHiveModel(
+        userId: result.userId,
+        logDate: result.logDate,
+        bmr: result.bmr,
+        consumedCalories: result.consumedCalories,
+        remainingCalories: result.remainingCalories,
+      );
+      var summaryBox = Hive.box<SummaryHiveModel>('summaryBox');
+      summaryBox.put('summary', summaryHiveModel);
+      return result;
     } catch (e) {
       throw e;
     }

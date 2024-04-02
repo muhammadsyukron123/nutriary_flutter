@@ -9,7 +9,7 @@ import '../../model/user/user.dart';
 class ConsumptionSummaryRemoteDataSource{
   var baseUrl = 'https://app.actualsolusi.com/bsi/Nutriary/api/';
 
-  Future<ConsumptionSummary> getConsumptionSummaryToday(int userId) async{
+  Future<CalorieSummary> getConsumptionSummaryToday(int userId) async{
     var box = Hive.box<User>('userBox');
     var user = box.get('user');
     if (user != null) {
@@ -23,7 +23,7 @@ class ConsumptionSummaryRemoteDataSource{
       );
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
-        ConsumptionSummary consumptionSummary = ConsumptionSummary.fromJson(jsonData);
+        CalorieSummary consumptionSummary = CalorieSummary.fromJson(jsonData);
         return consumptionSummary;
       } else {
         throw Exception('Failed to load consumption summary');
@@ -33,12 +33,12 @@ class ConsumptionSummaryRemoteDataSource{
     }
   }
 
-  Future<ConsumptionSummary> getConsumptionSummaryByDate(int userId, DateTime date) async {
+  Future<CalorieSummary> getCalorieSummaryByDate(int userId, DateTime date) async {
     var box = Hive.box<User>('userBox');
     var user = box.get('user');
     if (user != null) {
       var token = user.token;
-      var response = await http.get(Uri.parse(baseUrl + 'NutritionReport/GetCalorieSummaryByDate?UserId=$userId&LogDate=${date.toString()}'),
+      var response = await http.get(Uri.parse(baseUrl + 'NutritionReport/GetCalorieSummaryByDate?UserId=$userId&LogDate=${date.month}%2F${date.day}%2F${date.year}'),
           headers: {
             'accept': 'application/json',
             'Content-Type': 'application/json',
@@ -47,7 +47,7 @@ class ConsumptionSummaryRemoteDataSource{
       );
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
-        ConsumptionSummary consumptionSummary = ConsumptionSummary.fromJson(jsonData);
+        CalorieSummary consumptionSummary = CalorieSummary.fromJson(jsonData);
         return consumptionSummary;
       } else {
         throw Exception('Failed to load consumption summary');

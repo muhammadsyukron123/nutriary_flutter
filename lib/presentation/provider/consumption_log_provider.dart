@@ -33,6 +33,7 @@ class ConsumptionLogProvider extends ChangeNotifier {
   }
 
   Future<void> clearData() async {
+
     _data.clear();
     notifyListeners();
   }

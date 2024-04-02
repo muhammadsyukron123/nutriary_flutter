@@ -30,11 +30,20 @@ class AuthProvider extends ChangeNotifier {
   AuthProvider(this._loginUsecase);
 
   Future<void> login(BuildContext context, String email, String password) async {
+
     try {
       AuthModel authModel = await _loginUsecase.login(email, password);
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return Center(child: CircularProgressIndicator());
+        },
+      );
       if (authModel.userId != null) {
         WidgetsBinding.instance!.addPostFrameCallback((_) {
-          Get.off(() => HomeScreen());
+          Get.offAll(() => HomeScreen());
+          Get.snackbar('Login', 'Login Successful 🙌🙌', backgroundColor: Colors.indigo, colorText: Colors.white);
         });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(

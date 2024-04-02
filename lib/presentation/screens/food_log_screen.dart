@@ -6,7 +6,9 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:lottie/lottie.dart';
 import 'package:nutriary_flutter/presentation/provider/consumption_log_provider.dart';
 import 'package:nutriary_flutter/presentation/provider/delete_food_log_provider.dart';
+import 'package:nutriary_flutter/presentation/provider/update_food_log_provider.dart';
 import 'package:nutriary_flutter/presentation/screens/add_food_log.dart';
+import 'package:nutriary_flutter/presentation/screens/home_screen.dart';
 import 'package:nutriary_flutter/presentation/widget/food_log_detail_card.dart';
 import 'package:provider/provider.dart';
 
@@ -20,6 +22,7 @@ class FoodLogScreen extends StatelessWidget {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<ConsumptionLogProvider>(context, listen: false).refreshData();
     });
+    TextEditingController _quantityController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         title: SvgPicture.asset('assets/images/letter-n.svg',
@@ -66,8 +69,7 @@ class FoodLogScreen extends StatelessWidget {
                               //text button add food log
                               TextButton(
                                 onPressed: () {
-                                  Get.snackbar(
-                                      'Add Food Log', 'Under Development');
+                                  Get.to(AddFoodLog());
                                 },
                                 child: Text('Add Food Log',
                                     style: TextStyle(
@@ -79,13 +81,43 @@ class FoodLogScreen extends StatelessWidget {
                         return Dismissible(
                           key: Key(consumptionLog.logId.toString()), // assuming each log has a unique id
                           direction: DismissDirection.startToEnd,
-                          onDismissed: (direction) async {
-                            // Call the function to delete the log from your data source here
-                            // For example: ;
-                            WidgetsBinding.instance.addPostFrameCallback((_) {
-                              Provider.of<DeleteFoodLogProvider>(context, listen: false).deleteFoodLog(consumptionLog.logId); //assign the key to the logId
-                              print(consumptionLog.logId);
-                              Get.snackbar('Delete Food Log', 'Food Log Deleted', backgroundColor: Colors.red, colorText: Colors.white);
+                          confirmDismiss: (direction) async {
+                            return await showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text("Confirm"),
+                                  content: const Text(
+                                      "Are you sure you wish to delete this item?"),
+                                  actions: <Widget>[
+                                    TextButton(
+                                        onPressed: () async {
+                                          WidgetsBinding.instance.addPostFrameCallback((_) async {
+                                            Get.back(result: true);
+                                          });
+                                        },
+                                        child: const Text("DELETE")),
+                                    TextButton(
+                                      onPressed: () async =>
+                                          WidgetsBinding.instance.addPostFrameCallback((_) async {
+                                            Get.back(result: false);
+                                          }),
+                                      child: const Text("CANCEL"),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          onDismissed: (direction) {
+                            WidgetsBinding.instance.addPostFrameCallback((_) async {
+                              Provider.of<DeleteFoodLogProvider>(
+                                  context, listen: false)
+                                  .deleteFoodLog(consumptionLog.logId);
+                              Get.snackbar(
+                                  'Delete', 'Food log deleted successfully',
+                                  backgroundColor: Colors.red,
+                                  colorText: Colors.white);
                             });
                           },
                           background: Container(
@@ -94,7 +126,52 @@ class FoodLogScreen extends StatelessWidget {
                             alignment: Alignment.centerLeft,
                             padding: EdgeInsets.only(left: 20),
                           ),
-                          child: FoodLogCard(consumptionLog: consumptionLog),
+                          child: GestureDetector(
+                            onLongPress: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text('Change Food Quantity'),
+                                    content: TextField(
+                                      controller: _quantityController,
+                                      keyboardType: TextInputType.number,
+                                      decoration: InputDecoration(
+                                        labelText: 'Enter new quantity',
+                                      ),
+                                    ),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        child: Text('Update'),
+                                        onPressed: () async {
+                                          WidgetsBinding.instance.addPostFrameCallback((_) async {
+                                            Provider.of<UpdateFoodLogProvider>(context, listen: false)
+                                                .updateFoodLog(consumptionLog.logId, double.parse(_quantityController.text));
+                                            Get.back();
+                                            Get.snackbar('Success', 'Food log updated successfully',
+                                                backgroundColor: Colors.yellow, colorText: Colors.white);
+                                            Provider.of<ConsumptionLogProvider>(context, listen: false).refreshData();
+                                            _quantityController.clear();
+                                          });
+                                        },
+                                      ),
+                                      TextButton(
+                                        child: Text('Cancel'),
+                                        onPressed: () async{
+                                          WidgetsBinding.instance.addPostFrameCallback((_) async {
+                                            await Provider.of<ConsumptionLogProvider>(context, listen: false).refreshData();
+                                            Get.back();
+                                            _quantityController.clear();
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                            child: FoodLogCard(consumptionLog: consumptionLog),
+                          ),
                         );
                       }
                     },

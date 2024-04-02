@@ -1,11 +1,11 @@
-class ConsumptionSummary {
+class CalorieSummary {
   int userId;
   DateTime logDate;
   double bmr;
   double consumedCalories;
   double remainingCalories;
 
-  ConsumptionSummary({
+  CalorieSummary({
     required this.userId,
     required this.logDate,
     required this.bmr,
@@ -13,7 +13,7 @@ class ConsumptionSummary {
     required this.remainingCalories,
   });
 
-  factory ConsumptionSummary.fromJson(Map<String, dynamic> json) => ConsumptionSummary(
+  factory CalorieSummary.fromJson(Map<String, dynamic> json) => CalorieSummary(
     userId: json["user_id"],
     logDate: DateTime.parse(json["log_date"]),
     bmr: json["bmr"]?.toDouble(),

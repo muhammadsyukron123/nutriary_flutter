@@ -117,7 +117,7 @@ class AddFoodLog extends StatelessWidget {
                         .refreshData();
                     Get.offAll(HomeScreen());
                     Get.snackbar('Success', 'Food log added successfully',
-                        backgroundColor: Colors.green);
+                        backgroundColor: Colors.green, colorText: Colors.white);
                   }
                 },
                 style: ButtonStyle(

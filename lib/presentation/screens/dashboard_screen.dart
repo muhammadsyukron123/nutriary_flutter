@@ -9,6 +9,7 @@ import 'package:lottie/lottie.dart';
 import 'package:nutriary_flutter/data/model/summary/summary_today_hive_model.dart';
 import 'package:nutriary_flutter/data/model/user/user.dart';
 import 'package:nutriary_flutter/presentation/provider/summary_provider.dart';
+import 'package:nutriary_flutter/presentation/widget/status_calorie_card.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/model/summary/consumption_summary_model.dart';
@@ -43,10 +44,11 @@ class DashboardScreen extends StatelessWidget {
             Text('${user?.firstName} ${user?.lastName}',
                 style: TextStyle(fontSize: 20)),
             SizedBox(height: 20),
+
             Consumer<SummaryProvider>(
                 builder: (context, summaryProvider, child) {
               Provider.of<SummaryProvider>(context)
-                  .getConsumptionSummaryToday(user!.userId!);
+                  .getConsumptionSummaryByDate(user!.userId!, DateTime.now());
               var summary = summaryBox.get('summary');
               if (summary == null) {
                 return Center(
@@ -66,60 +68,75 @@ class DashboardScreen extends StatelessWidget {
                   ),
                 );
               } else {
-                return GridView.count(
-                  crossAxisCount: 3,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: [
-                    Container(
-                      child: Card(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text('Total\nCalorie 🍽',
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center),
-                            Text('${summary?.consumedCalories} kcal',
-                                style: TextStyle(fontSize: 16)),
-                          ],
-                        ),
+                return RefreshIndicator(
+                  onRefresh: () async{
+                    Provider.of<SummaryProvider>(context)
+                        .getConsumptionSummaryToday(user.userId!);
+                  },
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      StatusCalorieCard(summary: summary),
+                      SizedBox(height: 20),
+                      GridView.count(
+                        crossAxisCount: 3,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: [
+                          Container(
+                            child: Card(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text('Total\nCalorie 🍽',
+                                      style: TextStyle(
+                                          fontSize: 16, fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center),
+                                  Text('${summary?.consumedCalories} kcal',
+                                      style: TextStyle(fontSize: 16)),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Container(
+                            child: Card(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text('Remaining\nCalorie 🔥',
+                                      style: TextStyle(
+                                          fontSize: 16, fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center),
+                                  Text('${summary?.remainingCalories} kcal',
+                                      style: TextStyle(fontSize: 16)),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Container(
+                            child: Card(
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text('Calorie\nLimit 🏋️‍♂️',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center),
+                                    Text('${summary?.bmr} kcal',
+                                        style: TextStyle(fontSize: 16)),
+                                  ]),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    Container(
-                      child: Card(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text('Remaining\nCalorie 🔥',
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center),
-                            Text('${summary?.remainingCalories} kcal',
-                                style: TextStyle(fontSize: 16)),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Container(
-                      child: Card(
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text('Calorie\nLimit 🏋️‍♂️',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center),
-                              Text('${summary?.bmr} kcal',
-                                  style: TextStyle(fontSize: 16)),
-                            ]),
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 );
               }
             }),

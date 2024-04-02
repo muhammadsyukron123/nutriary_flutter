@@ -21,6 +21,10 @@ class ConsumptionLogRepository {
     return _consumptionLogDataSource.deleteFoodLog(id);
   }
 
+  Future<void> updateConsumptionLog(int logId, double quantity) async {
+    return _consumptionLogDataSource.updateFoodLog(logId, quantity);
+  }
+
   // Future<List<ConsumptionLog>> getConsumptionLogs() async {
   //   return _consumptionLogDataSource.();
   // }

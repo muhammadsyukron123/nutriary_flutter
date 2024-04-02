@@ -94,12 +94,6 @@ class ConsumptionLogRemoteDataSource{
     }
   }
 
-  // curl -X 'DELETE' \
-  // 'https://app.actualsolusi.com/bsi/Nutriary/api/ConsumptionLog/DeleteConsumptionLog?LogId=400' \
-  // -H 'accept: */*' \
-  // -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImpvaG5fZG9lMiIsIm5hbWVpZCI6IjEwIiwibmJmIjoxNzEyMDI5NzkxLCJleHAiOjE3MTQ2MjE3OTEsImlhdCI6MTcxMjAyOTc5MX0.uumQOG-20Kn2OAODY8f8Skz3SkSMZXS_yjdE2Z3i1nE'
-  // https://app.actualsolusi.com/bsi/Nutriary/api/ConsumptionLog/DeleteConsumptionLog?LogId=400
-
   Future<void> deleteFoodLog(int logId) async {
     var box = Hive.box<User>('userBox');
     var user = box.get('user');
@@ -118,6 +112,35 @@ class ConsumptionLogRemoteDataSource{
         print(response.body);
         print(response.statusCode);
         throw Exception('Failed to delete food log');
+      }
+    } else {
+      throw Exception('User not logged in');
+    }
+  }
+
+  Future<void> updateFoodLog(int logId, double quantity) async {
+    var box = Hive.box<User>('userBox');
+    var user = box.get('user');
+    if (user != null) {
+      var token = user.token;
+      var response = await http.put(
+        Uri.parse(baseUrl + 'ConsumptionLog/UpdateConsumptionQuantity'),
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          'logId': logId,
+          'quantity': quantity,
+        }),
+      );
+      if (response.statusCode == 200) {
+        print(response.statusCode);
+        print(response.body);
+      } else {
+        print(response.body);
+        print(response.statusCode);
+        throw Exception('Failed to update food log');
       }
     } else {
       throw Exception('User not logged in');

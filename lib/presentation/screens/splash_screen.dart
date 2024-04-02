@@ -20,34 +20,37 @@ class SplashScreen extends StatelessWidget {
     });
 
     return Scaffold(
-      body: Center( // Add this
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center, // And this
-          children: [
-            Container(
-              height: 200,
-              child: Center(
-                child: Text('Nutriary',
-                    style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
+      body: Center(
+        // Add this
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center, // And this
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                height: 200,
+                child: Center(
+                  child: Text('Nutriary',
+                      style:
+                          TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
+                ),
               ),
-            ),
-            Container(
-              height: 300,
-              child: Center(
-                child: Lottie.asset('assets/lottie/splash_animation.json'),
+              Container(
+                height: 300,
+                child: Center(
+                  child: Lottie.asset('assets/lottie/splash_animation.json'),
+                ),
               ),
-            ),
-            Container(
-              height: 200,
-              child: Center(
-                child: CircularProgressIndicator(),
-              ),
-            )
-          ],
+              Container(
+                height: 200,
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
   }
 }
-
-

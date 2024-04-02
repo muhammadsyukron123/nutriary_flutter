@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,6 +16,7 @@ import 'package:nutriary_flutter/presentation/provider/food_nutrition_provider.d
 import 'package:nutriary_flutter/presentation/provider/load_food_name_list_provider.dart';
 import 'package:nutriary_flutter/presentation/provider/profile_provider.dart';
 import 'package:nutriary_flutter/presentation/provider/summary_provider.dart';
+import 'package:nutriary_flutter/presentation/provider/update_food_log_provider.dart';
 import 'package:nutriary_flutter/presentation/provider/user_register_provider.dart';
 import 'package:nutriary_flutter/presentation/screens/home_screen.dart';
 import 'package:nutriary_flutter/presentation/screens/splash_screen.dart';
@@ -40,6 +43,7 @@ void main() async{
 
   LoadFoodNameListProvider loadFoodNameListProvider = LoadFoodNameListProvider();
   loadFoodNameListProvider.loadFoodNameList();
+  Get.snackbar('Load Food Name List', 'Food Name List Loaded Successfully', backgroundColor: Colors.indigo, colorText: Colors.white);
 
   runApp(const MyApp());
 }
@@ -61,7 +65,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => BottomNavigationProvider()),
         ChangeNotifierProvider(create: (_) => LoadFoodNameListProvider()),
         ChangeNotifierProvider(create: (_) => AddFoodLogProvider()),
-        ChangeNotifierProvider(create: (_) => DeleteFoodLogProvider())
+        ChangeNotifierProvider(create: (_) => DeleteFoodLogProvider()),
+        ChangeNotifierProvider(create: (_) => UpdateFoodLogProvider()),
       ],
           child: GetMaterialApp(
           title: 'Nutriary',
