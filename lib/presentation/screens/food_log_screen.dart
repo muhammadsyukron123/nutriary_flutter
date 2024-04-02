@@ -5,6 +5,8 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:lottie/lottie.dart';
 import 'package:nutriary_flutter/presentation/provider/consumption_log_provider.dart';
+import 'package:nutriary_flutter/presentation/provider/delete_food_log_provider.dart';
+import 'package:nutriary_flutter/presentation/screens/add_food_log.dart';
 import 'package:nutriary_flutter/presentation/widget/food_log_detail_card.dart';
 import 'package:provider/provider.dart';
 
@@ -74,7 +76,26 @@ class FoodLogScreen extends StatelessWidget {
                             ]);
                       } else {
                         final consumptionLog = provider.data[index];
-                        return FoodLogCard(consumptionLog: consumptionLog);
+                        return Dismissible(
+                          key: Key(consumptionLog.logId.toString()), // assuming each log has a unique id
+                          direction: DismissDirection.startToEnd,
+                          onDismissed: (direction) async {
+                            // Call the function to delete the log from your data source here
+                            // For example: ;
+                            WidgetsBinding.instance.addPostFrameCallback((_) {
+                              Provider.of<DeleteFoodLogProvider>(context, listen: false).deleteFoodLog(consumptionLog.logId); //assign the key to the logId
+                              print(consumptionLog.logId);
+                              Get.snackbar('Delete Food Log', 'Food Log Deleted', backgroundColor: Colors.red, colorText: Colors.white);
+                            });
+                          },
+                          background: Container(
+                            color: Colors.red,
+                            child: Icon(Icons.delete, color: Colors.white),
+                            alignment: Alignment.centerLeft,
+                            padding: EdgeInsets.only(left: 20),
+                          ),
+                          child: FoodLogCard(consumptionLog: consumptionLog),
+                        );
                       }
                     },
                   ),
@@ -86,7 +107,7 @@ class FoodLogScreen extends StatelessWidget {
       ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Get.snackbar('Add Food Log', 'Under Development');
+            Get.to(AddFoodLog());
           },
           child: Icon(Icons.add),
         )

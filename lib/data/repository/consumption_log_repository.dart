@@ -1,6 +1,7 @@
 
 
 import 'package:nutriary_flutter/data/datasource/remote/consumption_log_remote_datasource.dart';
+import 'package:nutriary_flutter/data/model/foodlog/add_consumption_log_model.dart';
 import 'package:nutriary_flutter/data/model/foodlog/consumption_log_model.dart';
 
 class ConsumptionLogRepository {
@@ -10,6 +11,14 @@ class ConsumptionLogRepository {
 
   Future<List<ConsumptionLog>> getConsumptionLogsByID(int id, DateTime logDate) async {
     return _consumptionLogDataSource.getFoodLogByID(id, logDate);
+  }
+
+  Future<AddConsumptionLog> addConsumptionLog(AddConsumptionLog consumptionLog) async {
+    return _consumptionLogDataSource.addFoodLog(consumptionLog);
+  }
+
+  Future<void> deleteConsumptionLog(int id) async {
+    return _consumptionLogDataSource.deleteFoodLog(id);
   }
 
   // Future<List<ConsumptionLog>> getConsumptionLogs() async {
