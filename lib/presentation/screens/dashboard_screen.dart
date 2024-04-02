@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:hive/hive.dart';
+import 'package:lottie/lottie.dart';
 import 'package:nutriary_flutter/data/model/summary/summary_today_hive_model.dart';
 import 'package:nutriary_flutter/data/model/user/user.dart';
 import 'package:nutriary_flutter/presentation/provider/summary_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/model/summary/consumption_summary_model.dart';
+import '../provider/consumption_log_provider.dart';
+import '../widget/food_log_detail_card.dart';
 import 'login_screen.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -22,14 +26,12 @@ class DashboardScreen extends StatelessWidget {
     if (userBox.isEmpty && summaryBox.isEmpty) {
       Get.off(() => LoginScreen());
     }
-    final User? user = userBox.getAt(0);
-
-    final summaryProvider = Provider.of<SummaryProvider>(context)
-        .getConsumptionSummaryToday(user!.userId!);
+    final user = userBox.get('user');
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Nutriary', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: SvgPicture.asset('assets/images/letter-n.svg',
+            height: 50, width: 50),
         centerTitle: true,
       ),
       body: Padding(
@@ -44,10 +46,25 @@ class DashboardScreen extends StatelessWidget {
             Consumer<SummaryProvider>(
                 builder: (context, summaryProvider, child) {
               Provider.of<SummaryProvider>(context)
-                  .getConsumptionSummaryToday(user.userId!);
-              var summary = summaryBox.getAt(0);
+                  .getConsumptionSummaryToday(user!.userId!);
+              var summary = summaryBox.get('summary');
               if (summary == null) {
-                return Center(child: CircularProgressIndicator());
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('You have not set your profile yet, set it now!',
+                          style: TextStyle(fontSize: 20)),
+                      TextButton(
+                        onPressed: () {
+                          Get.snackbar('Profile', 'Under Development');
+                        },
+                        child: Text('Profile',
+                            style: TextStyle(color: Colors.blue, fontSize: 20)),
+                      ),
+                    ],
+                  ),
+                );
               } else {
                 return GridView.count(
                   crossAxisCount: 3,
@@ -57,26 +74,14 @@ class DashboardScreen extends StatelessWidget {
                     Container(
                       child: Card(
                         child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('Your Calorie \nConsumption 🍽',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold)),
-                              Text('${summary?.consumedCalories} kcal',
-                                  style: TextStyle(fontSize: 16)),
-                            ]),
-                      ),
-                    ),
-                    Container(
-                      child: Card(
-                        child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text('Remaining Calorie 🔥',
+                            Text('Total\nCalorie 🍽',
                                 style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold)),
-                            Text('${summary?.remainingCalories} kcal',
+                                    fontSize: 16, fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center),
+                            Text('${summary?.consumedCalories} kcal',
                                 style: TextStyle(fontSize: 16)),
                           ],
                         ),
@@ -86,14 +91,32 @@ class DashboardScreen extends StatelessWidget {
                       child: Card(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text('Calorie Limit 🏋️‍♂️',
+                            Text('Remaining\nCalorie 🔥',
                                 style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold)),
-                            Text('${summary?.bmr} kcal',
+                                    fontSize: 16, fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center),
+                            Text('${summary?.remainingCalories} kcal',
                                 style: TextStyle(fontSize: 16)),
-                          ]
+                          ],
                         ),
+                      ),
+                    ),
+                    Container(
+                      child: Card(
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text('Calorie\nLimit 🏋️‍♂️',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center),
+                              Text('${summary?.bmr} kcal',
+                                  style: TextStyle(fontSize: 16)),
+                            ]),
                       ),
                     ),
                   ],
@@ -132,6 +155,7 @@ class DashboardScreen extends StatelessWidget {
           ],
         ),
       ),
+
     );
   }
 }

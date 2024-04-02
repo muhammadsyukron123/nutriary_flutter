@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:nutriary_flutter/presentation/screens/account_screen.dart';
-import 'package:nutriary_flutter/presentation/screens/dashboard_screen.dart';
-import 'package:nutriary_flutter/presentation/screens/food_log_screen.dart';
-import 'package:nutriary_flutter/presentation/screens/food_nutrition_list_screen.dart';
+import 'package:provider/provider.dart';
 
-class HomeScreen extends StatefulWidget {
+import '../provider/bottom_navbar_provider.dart';
+import 'account_screen.dart';
+import 'dashboard_screen.dart';
+import 'food_log_screen.dart';
+import 'food_nutrition_list_screen.dart';
+
+class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
-
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0;
 
   static List<Widget> _widgetOptions = <Widget>[
     DashboardScreen(),
@@ -21,43 +17,41 @@ class _HomeScreenState extends State<HomeScreen> {
     AccountScreen(),
   ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Dashboard',
+    return Consumer<BottomNavigationProvider>(
+      builder: (context, provider, child) {
+        return Scaffold(
+          body: Center(
+            child: _widgetOptions.elementAt(provider.currentIndex),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.edit_note),
-            label: 'Add',
+          bottomNavigationBar: BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Dashboard',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.edit_note),
+                label: 'Add',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.bar_chart),
+                label: 'Report',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.account_circle_rounded),
+                label: 'Account',
+              ),
+            ],
+            currentIndex: provider.currentIndex,
+            unselectedItemColor: Colors.grey,
+            selectedIconTheme: IconThemeData(color: Colors.indigoAccent),
+            selectedItemColor: Colors.indigoAccent,
+            onTap: provider.changeIndex,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart),
-            label: 'Report',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle_rounded),
-            label: 'Account',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        unselectedItemColor: Colors.grey,
-        selectedIconTheme: IconThemeData(color: Colors.indigoAccent),
-        selectedItemColor: Colors.indigoAccent,
-        onTap: _onItemTapped,
-      ),
+        );
+      },
     );
   }
 }

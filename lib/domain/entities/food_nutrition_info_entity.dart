@@ -1,7 +1,7 @@
 class FoodNutritionInfoEntity {
   String foodId;
   String foodName;
-  int energyKal;
+  double energyKal;
   double proteinG;
   double fatG;
   double carbsG;

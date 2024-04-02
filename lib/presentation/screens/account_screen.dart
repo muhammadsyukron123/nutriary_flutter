@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:hive/hive.dart';
+import 'package:nutriary_flutter/presentation/provider/consumption_log_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../data/model/summary/summary_today_hive_model.dart';
 import '../../data/model/user/user.dart';
+import '../provider/bottom_navbar_provider.dart';
 import 'login_screen.dart';
 
 class AccountScreen extends StatelessWidget {
@@ -54,6 +57,8 @@ class AccountScreen extends StatelessWidget {
                             WidgetsBinding.instance!.addPostFrameCallback((_) async {
                               await userBox.clear();
                               await summaryBox.clear();
+                              Provider.of<BottomNavigationProvider>(context, listen: false).resetIndex();
+                              Provider.of<ConsumptionLogProvider>(context, listen: false).clearData();
                               Get.offAll(LoginScreen());
                             });
 

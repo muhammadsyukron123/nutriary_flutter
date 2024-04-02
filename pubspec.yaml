@@ -20,6 +20,7 @@ dependencies:
   infinite_scroll_pagination: ^4.0.0
   flutter_svg: ^2.0.10+1
   get: ^4.6.6
+  get_it: ^7.6.7
 
 dev_dependencies:
   flutter_test:

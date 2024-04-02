@@ -32,6 +32,11 @@ class ConsumptionLogProvider extends ChangeNotifier {
     await loadData();
   }
 
+  Future<void> clearData() async {
+    _data.clear();
+    notifyListeners();
+  }
+
 }
 
 // class ConsumptionLogProvider extends ChangeNotifier{

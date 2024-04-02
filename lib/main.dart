@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:nutriary_flutter/data/datasource/local/summary_today_hive_datasource.dart';
 import 'package:nutriary_flutter/presentation/provider/auth_provider.dart';
+import 'package:nutriary_flutter/presentation/provider/bottom_navbar_provider.dart';
 import 'package:nutriary_flutter/presentation/provider/consumption_log_provider.dart';
 import 'package:nutriary_flutter/presentation/provider/food_nutrition_provider.dart';
 import 'package:nutriary_flutter/presentation/provider/profile_provider.dart';
@@ -17,7 +19,14 @@ import 'data/datasource/local/user_hive_datasource.dart';
 import 'data/model/user/user.dart';
 import 'domain/usecases/login_usecase.dart';
 
+final getIt = GetIt.instance;
+
+void setup() {
+  getIt.registerSingleton<AuthProvider>(AuthProvider(LoginUsecase()));
+}
+
 void main() async{
+  setup();
   UserHiveDataSource hiveDataSource = UserHiveDataSource();
   SummaryHiveDataSource summaryHiveDataSource = SummaryHiveDataSource();
   await hiveDataSource.init();
@@ -39,7 +48,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AuthProvider(LoginUsecase())),
         ChangeNotifierProvider(create: (_) => ProfileProvider()),
         ChangeNotifierProvider(create: (_) => SummaryProvider()),
-        ChangeNotifierProvider(create: (_) => ConsumptionLogProvider())
+        ChangeNotifierProvider(create: (_) => ConsumptionLogProvider()),
+        ChangeNotifierProvider(create: (_) => BottomNavigationProvider()),
       ],
           child: GetMaterialApp(
           title: 'Nutriary',
