@@ -68,7 +68,6 @@ class AccountScreen extends StatelessWidget {
                               Provider.of<ConsumptionLogProvider>(context, listen: false).clearData();
                               Get.offAll(LoginScreen());
                               Get.deleteAll();
-                              Get.snackbar('Logout', 'You have been logged out', backgroundColor: Colors.indigo, colorText: Colors.white);
                             });
 
                           },

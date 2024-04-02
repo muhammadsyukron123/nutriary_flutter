@@ -91,17 +91,13 @@ class FoodLogScreen extends StatelessWidget {
                                       "Are you sure you wish to delete this item?"),
                                   actions: <Widget>[
                                     TextButton(
-                                        onPressed: () async {
-                                          WidgetsBinding.instance.addPostFrameCallback((_) async {
-                                            Get.back(result: true);
-                                          });
+                                        onPressed: () {
+                                          Get.back(result: true);
                                         },
                                         child: const Text("DELETE")),
                                     TextButton(
                                       onPressed: () async =>
-                                          WidgetsBinding.instance.addPostFrameCallback((_) async {
-                                            Get.back(result: false);
-                                          }),
+                                          Get.back(result: false),
                                       child: const Text("CANCEL"),
                                     ),
                                   ],

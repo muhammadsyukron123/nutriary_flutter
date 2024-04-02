@@ -43,7 +43,6 @@ void main() async{
 
   LoadFoodNameListProvider loadFoodNameListProvider = LoadFoodNameListProvider();
   loadFoodNameListProvider.loadFoodNameList();
-  Get.snackbar('Load Food Name List', 'Food Name List Loaded Successfully', backgroundColor: Colors.indigo, colorText: Colors.white);
 
   runApp(const MyApp());
 }

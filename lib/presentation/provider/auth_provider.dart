@@ -43,7 +43,7 @@ class AuthProvider extends ChangeNotifier {
       if (authModel.userId != null) {
         WidgetsBinding.instance!.addPostFrameCallback((_) {
           Get.offAll(() => HomeScreen());
-          Get.snackbar('Login', 'Login Successful 🙌🙌', backgroundColor: Colors.indigo, colorText: Colors.white);
+          Get.snackbar('Welcome Back! 🙋‍♂️', 'Login successfull',backgroundColor: Colors.indigo, colorText: Colors.white);
         });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(

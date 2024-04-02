@@ -71,7 +71,7 @@ class DashboardScreen extends StatelessWidget {
                 return RefreshIndicator(
                   onRefresh: () async{
                     Provider.of<SummaryProvider>(context)
-                        .getConsumptionSummaryToday(user.userId!);
+                        .getConsumptionSummaryByDate(user!.userId!, DateTime.now());
                   },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
