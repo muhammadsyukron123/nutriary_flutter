@@ -8,6 +8,8 @@ import 'package:provider/provider.dart';
 import '../../data/model/summary/summary_today_hive_model.dart';
 import '../../data/model/user/user.dart';
 import '../provider/bottom_navbar_provider.dart';
+import '../provider/food_nutrition_by_date_provider.dart';
+import '../provider/summary_provider.dart';
 import 'login_screen.dart';
 
 class AccountScreen extends StatelessWidget {
@@ -66,6 +68,7 @@ class AccountScreen extends StatelessWidget {
                               await summaryBox.clear();
                               Provider.of<BottomNavigationProvider>(context, listen: false).resetIndex();
                               Provider.of<ConsumptionLogProvider>(context, listen: false).clearData();
+                              Provider.of<FoodNutritionReportByDateProvider>(context, listen: false).refreshNutritionReport();
                               Get.offAll(LoginScreen());
                               Get.deleteAll();
                             });

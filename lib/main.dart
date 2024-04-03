@@ -12,6 +12,7 @@ import 'package:nutriary_flutter/presentation/provider/auth_provider.dart';
 import 'package:nutriary_flutter/presentation/provider/bottom_navbar_provider.dart';
 import 'package:nutriary_flutter/presentation/provider/consumption_log_provider.dart';
 import 'package:nutriary_flutter/presentation/provider/delete_food_log_provider.dart';
+import 'package:nutriary_flutter/presentation/provider/food_nutrition_by_date_provider.dart';
 import 'package:nutriary_flutter/presentation/provider/food_nutrition_provider.dart';
 import 'package:nutriary_flutter/presentation/provider/load_food_name_list_provider.dart';
 import 'package:nutriary_flutter/presentation/provider/profile_provider.dart';
@@ -66,11 +67,12 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AddFoodLogProvider()),
         ChangeNotifierProvider(create: (_) => DeleteFoodLogProvider()),
         ChangeNotifierProvider(create: (_) => UpdateFoodLogProvider()),
+        ChangeNotifierProvider(create: (_) => FoodNutritionReportByDateProvider()),
       ],
           child: GetMaterialApp(
           title: 'Nutriary',
           theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo, secondary: Colors.indigoAccent, primary: Colors.indigo),
           fontFamily: GoogleFonts.poppins().fontFamily,
           useMaterial3: true,
           ),

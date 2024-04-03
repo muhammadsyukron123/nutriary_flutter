@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:hive/hive.dart';
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:nutriary_flutter/data/model/summary/summary_today_hive_model.dart';
 import 'package:nutriary_flutter/data/model/user/user.dart';
@@ -15,6 +16,8 @@ import 'package:provider/provider.dart';
 import '../../data/model/summary/consumption_summary_model.dart';
 import '../provider/consumption_log_provider.dart';
 import '../widget/food_log_detail_card.dart';
+import '../widget/nutrition_report_list.dart';
+import 'add_food_log.dart';
 import 'login_screen.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -69,9 +72,10 @@ class DashboardScreen extends StatelessWidget {
                 );
               } else {
                 return RefreshIndicator(
-                  onRefresh: () async{
+                  onRefresh: () async {
                     Provider.of<SummaryProvider>(context)
-                        .getConsumptionSummaryByDate(user!.userId!, DateTime.now());
+                        .getConsumptionSummaryByDate(
+                            user!.userId!, DateTime.now());
                   },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -87,38 +91,49 @@ class DashboardScreen extends StatelessWidget {
                         children: [
                           Container(
                             child: Card(
+                              color: Colors.indigo,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Text('Total\nCalorie 🍽',
-                                      style: TextStyle(
-                                          fontSize: 16, fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center),
+                                  Text(
+                                    'Total\nCalorie 🍽',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                    textAlign: TextAlign.center,
+                                  ),
                                   Text('${summary?.consumedCalories} kcal',
-                                      style: TextStyle(fontSize: 16)),
+                                      style: TextStyle(
+                                          fontSize: 16, color: Colors.white)),
                                 ],
                               ),
                             ),
                           ),
                           Container(
                             child: Card(
+                              color: Colors.indigo,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Text('Remaining\nCalorie 🔥',
                                       style: TextStyle(
-                                          fontSize: 16, fontWeight: FontWeight.bold),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
                                       textAlign: TextAlign.center),
                                   Text('${summary?.remainingCalories} kcal',
-                                      style: TextStyle(fontSize: 16)),
+                                      style: TextStyle(
+                                          fontSize: 16, color: Colors.white)),
                                 ],
                               ),
                             ),
                           ),
                           Container(
                             child: Card(
+                              color: Colors.indigo,
                               child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -126,53 +141,57 @@ class DashboardScreen extends StatelessWidget {
                                     Text('Calorie\nLimit 🏋️‍♂️',
                                         style: TextStyle(
                                             fontSize: 16,
-                                            fontWeight: FontWeight.bold),
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white),
                                         textAlign: TextAlign.center),
                                     Text('${summary?.bmr} kcal',
-                                        style: TextStyle(fontSize: 16)),
+                                        style: TextStyle(
+                                            fontSize: 16, color: Colors.white)),
                                   ]),
                             ),
                           ),
                         ],
+                      ),
+                      ListTile(
+                          title: Text('Nutrition Report',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold)),
+                          subtitle: Text(
+                              '${DateFormat('EEEE, dd MMMM yyyy').format(DateTime.now())}')),
+                      Container(
+                        child: summary.consumedCalories == 0
+                            ? Card(
+                              child: Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text("You haven't consumed any food yet today",
+                                      style: TextStyle(fontSize: 18)),
+                                  SizedBox(height: 16),
+                                  //text button add food log
+                                  TextButton(
+                                    onPressed: () {
+                                      Get.to(AddFoodLog());
+                                    },
+                                    child: Text('Add Food Log',
+                                        style: TextStyle(
+                                            color: Colors.blue, fontSize: 20)),
+                                  )
+                                ]),
+                              ),
+                            )
+                            : NutritionReportList(user: user),
                       ),
                     ],
                   ),
                 );
               }
             }),
-
-            // Row(
-            //   children: [
-            //     Expanded(
-            //       child: Card(
-            //         child: ListTile(
-            //           title: Text('Your Calorie Consumption 🍽'),
-            //           subtitle: Text('${} kcal'), //tampilkan data disini
-            //         ),
-            //       ),
-            //     ),
-            //     Expanded(
-            //       child: Card(
-            //         child: ListTile(
-            //           title: Text('Remaining Calorie 🔥'),
-            //           subtitle: Text('remainingCalories kcal'), // tampilkan data disini
-            //         ),
-            //       ),
-            //     ),
-            //     Expanded(
-            //         child: Card(
-            //           child: ListTile(
-            //             title: Text('Calorie Limit 🏋️‍♂️'), // tampilkan data disini
-            //             subtitle: Text('bmr kcal'),
-            //           ),
-            //         )
-            //     ),
-            //   ],
-            // ),
           ],
         ),
       ),
-
     );
   }
 }
