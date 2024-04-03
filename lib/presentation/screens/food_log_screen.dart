@@ -179,10 +179,11 @@ class FoodLogScreen extends StatelessWidget {
         },
       ),
         floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.indigo,
           onPressed: () {
             Get.to(AddFoodLog());
           },
-          child: Icon(Icons.add),
+          child: Icon(Icons.add, color: Colors.white),
         )
     );
   }
