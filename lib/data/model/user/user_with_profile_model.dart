@@ -6,8 +6,8 @@ class UserWithProfile {
   String lastname;
   String gender;
   int age;
-  int height;
-  int weight;
+  double height;
+  double weight;
   String activityName;
   String targetGoal;
   double bmr;

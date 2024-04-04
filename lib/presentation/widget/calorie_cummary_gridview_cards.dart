@@ -6,6 +6,9 @@ import '../provider/summary_provider.dart';
 class CalorieSummaryGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      Provider.of<SummaryProvider>(context, listen: false).refreshCalorieSummary();
+    });
     return Consumer<SummaryProvider>(
       builder: (context, summaryProvider, child) {
         var calorieSummary = summaryProvider.calorieSummary;

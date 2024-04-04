@@ -36,7 +36,7 @@ class HomeScreen extends StatelessWidget {
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.edit_note),
-                label: 'Add',
+                label: 'Food Log',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.bar_chart),

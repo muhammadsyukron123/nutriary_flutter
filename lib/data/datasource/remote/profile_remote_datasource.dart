@@ -59,7 +59,7 @@ class ProfileRemoteDataSource{
             'Content-Type': 'application/json',
             'Authorization': 'Bearer $token'
           }
-      );
+        );
       if (response.statusCode == 200) {
         var data = json.decode(response.body);
         print('this is from getuserprofile ${response.statusCode}');
@@ -74,6 +74,18 @@ class ProfileRemoteDataSource{
       throw Exception('User not logged in');
     }
   }
+
+  /**
+   * curl -X 'GET' \
+      'https://app.actualsolusi.com/bsi/Nutriary/api/Users/GetWithProfile?UserId=10' \
+      -H 'accept: application/json'
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImpvaG5fZG9lMiIsIm5hbWVpZCI6IjEwIiwibmJmIjoxNzEyMTk4MDc2LCJleHAiOjE3MTQ3OTAwNzYsImlhdCI6MTcxMjE5ODA3Nn0.G5FCc-girKyv1PN74VA15stC7wH_Ll7jKIZKMNVMrKU'
+   * This method is used to get user profile by userid that stored in hive userBox
+   */
+
+
+
+
 
 
 

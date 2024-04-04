@@ -27,13 +27,27 @@ class ConsumptionLogProvider extends ChangeNotifier {
     }
   }
 
+  Future<void> loadDataByDate(DateTime date) async {
+    _data.clear();
+    var box = Hive.box<User>('userBox');
+    var user = box.get('user');
+    var newData = await _consumptionLogUseCase.getConsumptionLogsByID(user!.userId!, date);
+    print('newData: $newData');
+    _data.addAll(newData);
+    notifyListeners();
+  }
+
   Future<void> refreshData() async {
     _data.clear();
     await loadData();
   }
 
-  Future<void> clearData() async {
+  Future<void> refreshDataByDate(DateTime date) async {
+    _data.clear();
+    await loadDataByDate(date);
+  }
 
+  Future<void> clearData() async {
     _data.clear();
     notifyListeners();
   }

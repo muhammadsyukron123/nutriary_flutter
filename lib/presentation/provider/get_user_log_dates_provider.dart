@@ -11,6 +11,16 @@ class GetUserlogDatesProvider extends ChangeNotifier {
   List<DateTime?> _userLogDates = [];
   List<DateTime?> get userLogDates => _userLogDates;
 
+
+  DateTime _focusedDay = DateTime.now();
+
+  DateTime get focusedDay => _focusedDay;
+
+  void setFocusedDay(DateTime focusedDay) {
+    _focusedDay = focusedDay;
+    notifyListeners();
+  }
+
   Future<List<UserLogDate>> getUserLogDates(int userId) async {
     try {
       var result = await _getUserLogDatesUseCase.getUserLogDates(userId);

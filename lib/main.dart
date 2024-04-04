@@ -15,6 +15,7 @@ import 'package:nutriary_flutter/presentation/provider/delete_food_log_provider.
 import 'package:nutriary_flutter/presentation/provider/food_nutrition_by_date_provider.dart';
 import 'package:nutriary_flutter/presentation/provider/food_nutrition_provider.dart';
 import 'package:nutriary_flutter/presentation/provider/get_user_log_dates_provider.dart';
+import 'package:nutriary_flutter/presentation/provider/get_user_profile_provider.dart';
 import 'package:nutriary_flutter/presentation/provider/load_food_name_list_provider.dart';
 import 'package:nutriary_flutter/presentation/provider/profile_provider.dart';
 import 'package:nutriary_flutter/presentation/provider/summary_provider.dart';
@@ -70,6 +71,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => UpdateFoodLogProvider()),
         ChangeNotifierProvider(create: (_) => FoodNutritionReportByDateProvider()),
         ChangeNotifierProvider(create: (_) => GetUserlogDatesProvider()),
+        ChangeNotifierProvider(create: (_) => GetUserProfileProvider())
       ],
           child: GetMaterialApp(
           title: 'Nutriary',

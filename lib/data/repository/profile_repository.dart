@@ -21,4 +21,13 @@ class ProfileRepository {
       throw e;
     }
   }
+
+  Future<UserWithProfile> getUserWithProfileRepository() async {
+    try {
+      final UserWithProfile userWithProfile = await _profileRemoteDataSource.getUserWithProfile();
+      return userWithProfile;
+    } catch (e) {
+      throw e;
+    }
+  }
 }
