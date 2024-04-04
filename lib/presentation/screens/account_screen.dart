@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:hive/hive.dart';
 import 'package:nutriary_flutter/presentation/provider/consumption_log_provider.dart';
+import 'package:nutriary_flutter/presentation/screens/edit_account_screen.dart';
+import 'package:nutriary_flutter/presentation/screens/edit_body_information_page.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/model/summary/summary_today_hive_model.dart';
@@ -64,7 +66,7 @@ class AccountScreen extends StatelessWidget {
                               return AlertDialog(
                                 title: Text('Logout'),
                                 content:
-                                Text('Are you sure you want to logout?'),
+                                    Text('Are you sure you want to logout?'),
                                 actions: [
                                   TextButton(
                                     onPressed: () {
@@ -76,22 +78,22 @@ class AccountScreen extends StatelessWidget {
                                           builder: (BuildContext context) {
                                             return Center(
                                                 child:
-                                                CircularProgressIndicator());
+                                                    CircularProgressIndicator());
                                           },
                                         );
                                         await userBox.clear();
                                         await summaryBox.clear();
                                         Provider.of<BottomNavigationProvider>(
-                                            context,
-                                            listen: false)
+                                                context,
+                                                listen: false)
                                             .resetIndex();
                                         Provider.of<ConsumptionLogProvider>(
-                                            context,
-                                            listen: false)
+                                                context,
+                                                listen: false)
                                             .clearData();
                                         Provider.of<FoodNutritionReportByDateProvider>(
-                                            context,
-                                            listen: false)
+                                                context,
+                                                listen: false)
                                             .refreshNutritionReport();
                                         Get.offAll(LoginScreen());
                                         Get.deleteAll();
@@ -115,11 +117,11 @@ class AccountScreen extends StatelessWidget {
                               RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5))),
                           backgroundColor:
-                          MaterialStateProperty.all(Colors.red),
+                              MaterialStateProperty.all(Colors.red),
                         ),
                         child: Text('Logout',
                             style:
-                            TextStyle(color: Colors.white, fontSize: 16)),
+                                TextStyle(color: Colors.white, fontSize: 16)),
                       ),
                     ),
                   ],
@@ -135,13 +137,27 @@ class AccountScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Account and Profile',
+                    Text('Account and Body Information',
                         style: TextStyle(
                             fontSize: 24, fontWeight: FontWeight.bold)),
                     Text(
-                        'This your account and profile information. You can update your profile here.',
+                        'This your account and body information. You can update your information here.',
                         style: TextStyle(fontSize: 20)),
                     SizedBox(height: 20),
+                    ListTile(
+                        title: Text('Account Information ',
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold)),
+                        subtitle: Text(
+                            'This is your account information'),
+                      trailing: IconButton(
+                        icon: Icon(Icons.edit),
+                        onPressed: () {
+                          Get.to(EditAccountScreen());
+                        },
+                      ),
+                    ),
+                    SizedBox(height: 10),
                     Card(
                       child: Column(
                         children: [
@@ -165,6 +181,20 @@ class AccountScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 20),
+                    ListTile(
+                      title: Text('Body Information ',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold)),
+                      subtitle: Text(
+                          'Body information is used to calculate your daily calorie limit and nutrition report.'),
+                      trailing: IconButton(
+                        icon: Icon(Icons.edit),
+                        onPressed: () {
+                          Get.to(EditBodyInfoScreen());
+                        },
+                      ),
+                    ),
+                    SizedBox(height: 10),
                     Card(
                       child: Column(
                         children: [
@@ -207,7 +237,7 @@ class AccountScreen extends StatelessWidget {
                               return AlertDialog(
                                 title: Text('Logout'),
                                 content:
-                                Text('Are you sure you want to logout?'),
+                                    Text('Are you sure you want to logout?'),
                                 actions: [
                                   TextButton(
                                     onPressed: () {
@@ -219,22 +249,22 @@ class AccountScreen extends StatelessWidget {
                                           builder: (BuildContext context) {
                                             return Center(
                                                 child:
-                                                CircularProgressIndicator());
+                                                    CircularProgressIndicator());
                                           },
                                         );
                                         await userBox.clear();
                                         await summaryBox.clear();
                                         Provider.of<BottomNavigationProvider>(
-                                            context,
-                                            listen: false)
+                                                context,
+                                                listen: false)
                                             .resetIndex();
                                         Provider.of<ConsumptionLogProvider>(
-                                            context,
-                                            listen: false)
+                                                context,
+                                                listen: false)
                                             .clearData();
                                         Provider.of<FoodNutritionReportByDateProvider>(
-                                            context,
-                                            listen: false)
+                                                context,
+                                                listen: false)
                                             .refreshNutritionReport();
                                         Get.offAll(LoginScreen());
                                         Get.deleteAll();
@@ -258,11 +288,11 @@ class AccountScreen extends StatelessWidget {
                               RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5))),
                           backgroundColor:
-                          MaterialStateProperty.all(Colors.red),
+                              MaterialStateProperty.all(Colors.red),
                         ),
                         child: Text('Logout',
                             style:
-                            TextStyle(color: Colors.white, fontSize: 16)),
+                                TextStyle(color: Colors.white, fontSize: 16)),
                       ),
                     ),
                   ],

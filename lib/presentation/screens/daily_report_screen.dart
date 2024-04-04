@@ -46,13 +46,18 @@ class DailyReportScreen extends StatelessWidget {
                     TextStyle(fontSize: 24, fontWeight: FontWeight.bold,),
                     textAlign: TextAlign.start),
                     Text(
-                      'Report of food you have consumed on \n${DateFormat('EEEE, dd MMMM y').format(provider.selectedDate)}',
+                      'Report of food you have consumed on',
                       style: TextStyle(fontSize: 20),
+                    ),
+                    Text(
+                      DateFormat('EEEE, dd MMMM y').format(provider.selectedDate),
+                      style: TextStyle(fontSize: 16),
                     ),
                   ],
                 );
               },
             ),
+            SizedBox(height: 20),
             LogDateTimePicker(user: user!),
             SizedBox(height: 20),
             CalorieSummaryGrid(),

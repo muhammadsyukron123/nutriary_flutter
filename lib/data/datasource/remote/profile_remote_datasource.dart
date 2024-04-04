@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:nutriary_flutter/data/model/profile/create_user_profile_model.dart';
+import 'package:nutriary_flutter/data/model/user/update_user_account_model.dart';
 
 import '../../model/user/user.dart';
 import '../../model/user/user_with_profile_model.dart';
@@ -74,14 +75,39 @@ class ProfileRemoteDataSource{
       throw Exception('User not logged in');
     }
   }
-
-  /**
-   * curl -X 'GET' \
-      'https://app.actualsolusi.com/bsi/Nutriary/api/Users/GetWithProfile?UserId=10' \
-      -H 'accept: application/json'
-  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImpvaG5fZG9lMiIsIm5hbWVpZCI6IjEwIiwibmJmIjoxNzEyMTk4MDc2LCJleHAiOjE3MTQ3OTAwNzYsImlhdCI6MTcxMjE5ODA3Nn0.G5FCc-girKyv1PN74VA15stC7wH_Ll7jKIZKMNVMrKU'
-   * This method is used to get user profile by userid that stored in hive userBox
-   */
+  
+  Future<void> updateUserAccount(UpdateUser updateUser) async {
+    var box = Hive.box<User>('userBox');
+    var user = box.get('user');
+    if (user != null) {
+      var token = user.token;
+      var response = await http.put(Uri.parse(baseUrl + 'Users/UpdateUser'),
+          headers: {
+            'accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token'
+          },
+          body: jsonEncode({
+            'userId' : user.userId,
+            'username' : updateUser.username,
+            'email' : updateUser.email,
+            'firstname' : updateUser.firstname,
+            'lastname' : updateUser.lastname,
+          })
+      );
+      if (response.statusCode == 200) {
+        print('this is from updateprofile ${response.statusCode}');
+        print('this is from updateprofile ${response.body}');
+      } else {
+        print('this is from updateprofile ${response.statusCode}');
+        print('this is from updateprofile ${response.body}');
+        throw Exception('Failed to update profile');
+      }
+    }
+    else {
+      throw Exception('User not logged in');
+    }
+  }
 
 
 

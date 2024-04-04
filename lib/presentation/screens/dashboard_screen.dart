@@ -10,6 +10,7 @@ import 'package:lottie/lottie.dart';
 import 'package:nutriary_flutter/data/model/summary/summary_today_hive_model.dart';
 import 'package:nutriary_flutter/data/model/user/user.dart';
 import 'package:nutriary_flutter/presentation/provider/summary_provider.dart';
+import 'package:nutriary_flutter/presentation/screens/create_profile_screen.dart';
 import 'package:nutriary_flutter/presentation/widget/status_calorie_card.dart';
 import 'package:provider/provider.dart';
 
@@ -62,7 +63,7 @@ class DashboardScreen extends StatelessWidget {
                           style: TextStyle(fontSize: 20)),
                       TextButton(
                         onPressed: () {
-                          Get.snackbar('Profile', 'Under Development');
+                          Get.off(CreateProfileScreen());
                         },
                         child: Text('Profile',
                             style: TextStyle(color: Colors.blue, fontSize: 20)),
