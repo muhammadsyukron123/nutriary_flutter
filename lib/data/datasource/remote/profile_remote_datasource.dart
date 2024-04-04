@@ -98,6 +98,19 @@ class ProfileRemoteDataSource{
       if (response.statusCode == 200) {
         print('this is from updateprofile ${response.statusCode}');
         print('this is from updateprofile ${response.body}');
+        var data = json.decode(response.body);
+        print(data['username']);
+        print(data['email']);
+        print(data['firstname']);
+        print(data['lastname']);
+        box.put('user', User(
+          userId: user.userId,
+          username: data['username'],
+          firstName: data['firstname'],
+          lastName: data['lastname'],
+          token: user.token
+        ));
+
       } else {
         print('this is from updateprofile ${response.statusCode}');
         print('this is from updateprofile ${response.body}');

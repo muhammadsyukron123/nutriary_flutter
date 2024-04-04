@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:nutriary_flutter/data/model/user/update_user_account_model.dart';
+import 'package:nutriary_flutter/presentation/provider/update_user_account_provider.dart';
+import 'package:nutriary_flutter/presentation/screens/account_screen.dart';
+import 'package:nutriary_flutter/presentation/screens/home_screen.dart';
 import 'package:provider/provider.dart';
+import '../../data/datasource/remote/profile_remote_datasource.dart';
 import '../provider/get_user_profile_provider.dart';
 
 class EditAccountScreen extends StatelessWidget {
@@ -102,7 +108,16 @@ class EditAccountScreen extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        // Call the method to update the user data here
+                        Provider.of<UpdateUserAccountProvider>(context, listen: false)
+                            .updateUserAccount(
+                            UpdateUser(
+                                username: _usernameController.text,
+                                email: _emailController.text,
+                                firstname: _firstNameController.text,
+                                lastname: _lastNameController.text)
+                        );
+                        Get.offAll(HomeScreen());
+                        Get.snackbar('Success', 'Account updated successfully',backgroundColor: Colors.green, colorText: Colors.white);
                       }
                     },
                     style: ButtonStyle(

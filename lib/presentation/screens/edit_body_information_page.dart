@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:nutriary_flutter/data/model/profile/create_user_profile_model.dart';
+import 'package:nutriary_flutter/domain/entities/user_register_entity.dart';
+import 'package:nutriary_flutter/presentation/provider/profile_provider.dart';
+import 'package:nutriary_flutter/presentation/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/get_user_profile_provider.dart';
+import '../provider/user_register_provider.dart';
 
 class EditBodyInfoScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
@@ -178,7 +184,16 @@ class EditBodyInfoScreen extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      // Call the method to update the user data here
+                      Provider.of<ProfileProvider>(context, listen: false).insertUserProfile(CreateUserProfile(
+                        gender: _selectedGender!,
+                        age: int.parse(_ageController.text),
+                        height: double.parse(_heightController.text),
+                        weight: double.parse(_weightController.text),
+                        activityLevelId: _selectedActivity!['id'],
+                        targetGoalId: _selectedGoal!['id'],)
+                      );
+                      Get.offAll(HomeScreen());
+                      Get.snackbar('Success','Body profile updated successfully', backgroundColor: Colors.green, colorText: Colors.white);
                     }
                   },
                   style: ButtonStyle(

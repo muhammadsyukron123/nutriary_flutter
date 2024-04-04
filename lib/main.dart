@@ -20,6 +20,7 @@ import 'package:nutriary_flutter/presentation/provider/load_food_name_list_provi
 import 'package:nutriary_flutter/presentation/provider/profile_provider.dart';
 import 'package:nutriary_flutter/presentation/provider/summary_provider.dart';
 import 'package:nutriary_flutter/presentation/provider/update_food_log_provider.dart';
+import 'package:nutriary_flutter/presentation/provider/update_user_account_provider.dart';
 import 'package:nutriary_flutter/presentation/provider/user_register_provider.dart';
 import 'package:nutriary_flutter/presentation/screens/home_screen.dart';
 import 'package:nutriary_flutter/presentation/screens/splash_screen.dart';
@@ -71,7 +72,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => UpdateFoodLogProvider()),
         ChangeNotifierProvider(create: (_) => FoodNutritionReportByDateProvider()),
         ChangeNotifierProvider(create: (_) => GetUserlogDatesProvider()),
-        ChangeNotifierProvider(create: (_) => GetUserProfileProvider())
+        ChangeNotifierProvider(create: (_) => GetUserProfileProvider()),
+        ChangeNotifierProvider(create: (_) => UpdateUserAccountProvider()),
       ],
           child: GetMaterialApp(
           title: 'Nutriary',

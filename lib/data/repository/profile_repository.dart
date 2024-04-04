@@ -1,5 +1,6 @@
 import '../datasource/remote/profile_remote_datasource.dart';
 import '../model/profile/create_user_profile_model.dart';
+import '../model/user/update_user_account_model.dart';
 import '../model/user/user_with_profile_model.dart';
 
 class ProfileRepository {
@@ -29,5 +30,14 @@ class ProfileRepository {
     } catch (e) {
       throw e;
     }
+  }
+
+  Future<void> updateUserAccountRepository(UpdateUser updateUser) async{
+    try {
+      await _profileRemoteDataSource.updateUserAccount(updateUser);
+    } catch (e) {
+      throw e;
+    }
+
   }
 }

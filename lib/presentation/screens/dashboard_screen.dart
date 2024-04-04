@@ -32,6 +32,10 @@ class DashboardScreen extends StatelessWidget {
       Get.off(() => LoginScreen());
     }
     final user = userBox.get('user');
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      Provider.of<SummaryProvider>(context, listen: false)
+          .getConsumptionSummaryByDate(user!.userId!, DateTime.now());
+    });
 
     return Scaffold(
       appBar: AppBar(
@@ -48,11 +52,8 @@ class DashboardScreen extends StatelessWidget {
             Text('${user?.firstName} ${user?.lastName}',
                 style: TextStyle(fontSize: 20)),
             SizedBox(height: 20),
-
             Consumer<SummaryProvider>(
                 builder: (context, summaryProvider, child) {
-              Provider.of<SummaryProvider>(context)
-                  .getConsumptionSummaryByDate(user!.userId!, DateTime.now());
               var summary = summaryBox.get('summary');
               if (summary == null) {
                 return Center(
@@ -183,7 +184,7 @@ class DashboardScreen extends StatelessWidget {
                                 ]),
                               ),
                             )
-                            : NutritionReportList(user: user),
+                            : NutritionReportList(user: user!),
                       ),
                     ],
                   ),
