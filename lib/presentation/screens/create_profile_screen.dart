@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:nutriary_flutter/data/model/profile/create_user_profile_model.dart';
@@ -39,7 +40,9 @@ class CreateProfileScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('')
+        title: SvgPicture.asset('assets/images/letter-n.svg',
+            height: 50, width: 50),
+        centerTitle: true,
       ),
       body: Form(
         key: _formKey,

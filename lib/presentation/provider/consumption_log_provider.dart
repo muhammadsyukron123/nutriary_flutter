@@ -20,6 +20,7 @@ class ConsumptionLogProvider extends ChangeNotifier {
   Future<void> loadData() async {
     var box = Hive.box<User>('userBox');
     var user = box.get('user');
+    _data.clear();
     var newData = await _consumptionLogUseCase.getConsumptionLogsByID(user!.userId!, DateTime.now() );
     if (newData.isNotEmpty) {
       _data.addAll(newData);

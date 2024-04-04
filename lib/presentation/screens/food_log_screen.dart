@@ -17,10 +17,11 @@ import '../../data/model/foodlog/consumption_log_model.dart';
 class FoodLogScreen extends StatelessWidget {
   const FoodLogScreen({super.key});
 
+
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<ConsumptionLogProvider>(context, listen: false).refreshData();
+      Provider.of<ConsumptionLogProvider>(context, listen: false).refreshDataByDate(DateTime.now());
     });
     TextEditingController _quantityController = TextEditingController();
     return Scaffold(
@@ -34,7 +35,9 @@ class FoodLogScreen extends StatelessWidget {
           return RefreshIndicator(
             onRefresh: () async {
               await Provider.of<ConsumptionLogProvider>(context, listen: false)
-                  .refreshData();
+                  .loadDataByDate(DateTime.now());
+              await Provider.of<ConsumptionLogProvider>(context, listen: false)
+                  .refreshDataByDate(DateTime.now());
             },
             child: Padding(
               padding: const EdgeInsets.all(20.0),

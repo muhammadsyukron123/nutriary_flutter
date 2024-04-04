@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/get_user_profile_provider.dart';
@@ -42,13 +43,24 @@ class EditBodyInfoScreen extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(
-            title: Text('Edit Body Information'),
+            title: SvgPicture.asset('assets/images/letter-n.svg',
+                height: 50, width: 50),
+            centerTitle: true,
           ),
           body: Form(
             key: _formKey,
             child: ListView(
               padding: EdgeInsets.all(20.0),
               children: [
+                Text('Update Body Information',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.bold)),
+                Text('You can change these body information',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(fontSize: 16, color: Colors.grey)),
+                //first name and last name fields
+                SizedBox(height: 20),
                 DropdownButtonFormField<String>(
                   value: _selectedGender,
                   hint: Text('Select Gender'),
@@ -169,7 +181,14 @@ class EditBodyInfoScreen extends StatelessWidget {
                       // Call the method to update the user data here
                     }
                   },
-                  child: Text('Update'),
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5))),
+                    backgroundColor:
+                    MaterialStateProperty.all(Colors.indigo),
+                  ),
+                  child: Text('Update', style: TextStyle(color: Colors.white)),
                 ),
               ],
             ),

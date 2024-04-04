@@ -16,10 +16,27 @@ class GetUserlogDatesProvider extends ChangeNotifier {
 
   DateTime get focusedDay => _focusedDay;
 
+  List<DateTime> selectedDays = [];
+
+  DateTime? randomSelectedDate;
+
+  void setRandomSelectedDate(DateTime date) {
+    randomSelectedDate = date;
+    notifyListeners();
+  }
+
   void setFocusedDay(DateTime focusedDay) {
     _focusedDay = focusedDay;
     notifyListeners();
   }
+
+  void addSelectedDay(DateTime day) {
+    if (!selectedDays.contains(day)) {
+      selectedDays.add(day);
+      notifyListeners();
+    }
+  }
+
 
   Future<List<UserLogDate>> getUserLogDates(int userId) async {
     try {

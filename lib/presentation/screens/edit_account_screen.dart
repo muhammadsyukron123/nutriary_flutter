@@ -22,13 +22,24 @@ class EditAccountScreen extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(
-            title: Text('Edit Account'),
+            title: SvgPicture.asset('assets/images/letter-n.svg',
+                height: 50, width: 50),
+            centerTitle: true,
           ),
           body: Form(
             key: _formKey,
             child: ListView(
               padding: EdgeInsets.all(20.0),
               children: [
+                Text('Update account',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.bold)),
+                Text('You can change these account information',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(fontSize: 16, color: Colors.grey)),
+                //first name and last name fields
+                SizedBox(height: 20),
                 TextFormField(
                   controller: _usernameController,
                   validator: (value) {
@@ -85,13 +96,24 @@ class EditAccountScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      // Call the method to update the user data here
-                    }
-                  },
-                  child: Text('Update'),
+                Container(
+                  height: 50,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        // Call the method to update the user data here
+                      }
+                    },
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5))),
+                      backgroundColor:
+                      MaterialStateProperty.all(Colors.indigo),
+                    ),
+                    child: Text('Update', style: TextStyle(color: Colors.white)),
+                  ),
                 ),
               ],
             ),

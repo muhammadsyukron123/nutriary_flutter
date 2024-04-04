@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:nutriary_flutter/domain/entities/user_register_entity.dart';
@@ -25,7 +26,9 @@ class UserRegisterScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(''),
+        title: SvgPicture.asset('assets/images/letter-n.svg',
+            height: 50, width: 50),
+        centerTitle: true,
       ),
       body: Form(
         key: _formKey,
