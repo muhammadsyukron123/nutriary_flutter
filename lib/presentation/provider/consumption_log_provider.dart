@@ -14,6 +14,9 @@ class ConsumptionLogProvider extends ChangeNotifier {
   var _selectedDate = DateTime.now();
   List<ConsumptionLog> _data = [];
 
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+
   List<ConsumptionLog> get data => _data;
   DateTime get logDate => _selectedDate;
 
@@ -21,9 +24,11 @@ class ConsumptionLogProvider extends ChangeNotifier {
     var box = Hive.box<User>('userBox');
     var user = box.get('user');
     _data.clear();
+    _isLoading = true;
     var newData = await _consumptionLogUseCase.getConsumptionLogsByID(user!.userId!, DateTime.now() );
     if (newData.isNotEmpty) {
       _data.addAll(newData);
+      _isLoading = false;
       notifyListeners();
     }
   }
@@ -32,20 +37,26 @@ class ConsumptionLogProvider extends ChangeNotifier {
     _data.clear();
     var box = Hive.box<User>('userBox');
     var user = box.get('user');
+    _isLoading = true;
     var newData = await _consumptionLogUseCase.getConsumptionLogsByID(user!.userId!, date);
     print('newData: $newData');
+    _isLoading = false;
     _data.addAll(newData);
     notifyListeners();
   }
 
   Future<void> refreshData() async {
     _data.clear();
+    _isLoading = true;
     await loadData();
+    _isLoading = false;
   }
 
   Future<void> refreshDataByDate(DateTime date) async {
     _data.clear();
+    _isLoading = true;
     await loadDataByDate(date);
+    _isLoading = false;
   }
 
   Future<void> clearData() async {

@@ -235,6 +235,7 @@ class CreateProfileScreen extends StatelessWidget {
                               await Provider.of<ProfileProvider>(context, listen: false).insertUserProfile(createProfile);
                               WidgetsBinding.instance!.addPostFrameCallback((_) {
                                 Get.off(() => HomeScreen());
+                                Get.snackbar('All set!', 'Let\'s start tracking your nutrition',backgroundColor: Colors.indigo, colorText: Colors.white);
                               });
                             }
                             else {

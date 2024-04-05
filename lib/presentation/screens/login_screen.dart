@@ -29,6 +29,20 @@ class LoginScreen extends StatelessWidget {
     final TextEditingController _usernameController = TextEditingController();
     final TextEditingController _passwordController = TextEditingController();
 
+    if(Provider.of<AuthProvider>(context, listen: false).isLoading){
+      return Stack(
+        children: <Widget>[
+          Opacity(
+            opacity: 0.3,
+            child: const ModalBarrier(dismissible: false, color: Colors.grey),
+          ),
+          Center(
+            child: CircularProgressIndicator(),
+          ),
+        ],
+      );
+    }
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(

@@ -29,17 +29,15 @@ class AuthProvider extends ChangeNotifier {
 
   AuthProvider(this._loginUsecase);
 
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+
   Future<void> login(BuildContext context, String email, String password) async {
 
     try {
+      _isLoading = true;
       AuthModel authModel = await _loginUsecase.login(email, password);
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return Center(child: CircularProgressIndicator());
-        },
-      );
+      _isLoading = false;
       if (authModel.userId != null) {
         WidgetsBinding.instance!.addPostFrameCallback((_) {
           Get.offAll(() => HomeScreen());

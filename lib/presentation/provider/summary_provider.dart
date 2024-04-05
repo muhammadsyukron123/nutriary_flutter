@@ -11,9 +11,16 @@ class SummaryProvider extends ChangeNotifier {
   DateTime _selectedDate = DateTime.now();
   DateTime get selectedDate => _selectedDate;
 
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+
+
+
   Future<CalorieSummary> getConsumptionSummaryToday(int UserId) async {
     try {
+      _isLoading = true;
       var result = await _summaryUsecase.getCalorieSummaryToday(UserId);
+      _isLoading = false;
       notifyListeners();
       return result;
     } catch (e) {
@@ -24,7 +31,9 @@ class SummaryProvider extends ChangeNotifier {
 
   Future<void> getConsumptionSummaryByDate(int UserId, DateTime date) async {
     try {
+      _isLoading = true;
       var result = await _summaryUsecase.getCalorieSummaryByDate(UserId, date);
+      _isLoading = false;
       _calorieSummary = result;
       notifyListeners();
     } catch (e) {

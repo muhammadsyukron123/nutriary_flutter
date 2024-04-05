@@ -1,5 +1,8 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:nutriary_flutter/data/datasource/remote/consumption_summary_remote_datasource.dart';
@@ -44,9 +47,15 @@ class AuthRemoteDataSource{
         token: authModel.token,
       );
       await box.put('user', user);
+      Get.snackbar('Welcome Back! 🙋‍♂️', 'Login successfull',backgroundColor: Colors.indigo, colorText: Colors.white);
 
       return authModel;
-    } else {
+    }
+    else if(response.statusCode == 401){
+      throw Exception('Incorrect username or password');
+    }
+
+    else {
       throw Exception('Failed to login');
     }
   }

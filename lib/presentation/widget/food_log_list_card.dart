@@ -12,6 +12,9 @@ class FoodLogList extends StatelessWidget {
       height: MediaQuery.of(context).size.height - 500,
       child: Consumer<ConsumptionLogProvider>(
         builder: (context, provider, child) {
+          if(provider.isLoading) {
+            return Center(child: CircularProgressIndicator());
+          }
           return ListView.builder(
             itemCount: provider.data.isEmpty ? 1 : provider.data.length,
             itemBuilder: (context, index) {

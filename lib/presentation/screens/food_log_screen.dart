@@ -9,6 +9,7 @@ import 'package:nutriary_flutter/presentation/provider/delete_food_log_provider.
 import 'package:nutriary_flutter/presentation/provider/update_food_log_provider.dart';
 import 'package:nutriary_flutter/presentation/screens/add_food_log.dart';
 import 'package:nutriary_flutter/presentation/screens/home_screen.dart';
+import 'package:nutriary_flutter/presentation/utils/loading_shimmer.dart';
 import 'package:nutriary_flutter/presentation/widget/food_log_detail_card.dart';
 import 'package:provider/provider.dart';
 
@@ -32,6 +33,11 @@ class FoodLogScreen extends StatelessWidget {
       ),
       body: Consumer<ConsumptionLogProvider>(
         builder: (context, provider, child) {
+          if (provider.isLoading) {
+            return Center(
+                child: CircularProgressIndicator()
+            );
+          }
           return RefreshIndicator(
             onRefresh: () async {
               await Provider.of<ConsumptionLogProvider>(context, listen: false)

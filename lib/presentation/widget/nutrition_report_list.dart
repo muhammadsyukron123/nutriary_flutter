@@ -16,8 +16,10 @@ class NutritionReportList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<FoodNutritionReportByDateProvider>(context)
-        .getFoodNutritionReportByDate(user.userId!, DateTime.now());
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      Provider.of<FoodNutritionReportByDateProvider>(context, listen: false)
+          .getFoodNutritionReportByDate(user.userId!, DateTime.now());
+    });
     return Consumer<FoodNutritionReportByDateProvider>(
       builder: (context, foodNutritionProvider, child) {
         var report = foodNutritionProvider.nutritionReport;

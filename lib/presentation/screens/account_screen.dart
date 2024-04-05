@@ -15,6 +15,7 @@ import '../provider/bottom_navbar_provider.dart';
 import '../provider/food_nutrition_by_date_provider.dart';
 import '../provider/get_user_profile_provider.dart';
 import '../provider/summary_provider.dart';
+import '../utils/loading_shimmer.dart';
 import '../widget/user_profile_card.dart';
 import 'create_profile_screen.dart';
 import 'login_screen.dart';
@@ -39,6 +40,10 @@ class AccountScreen extends StatelessWidget {
       body: Consumer<GetUserProfileProvider>(
         builder: (context, provider, child) {
           UserWithProfile? user = provider.userWithProfile;
+          if (provider.isLoading) {
+            // Show shimmer effect while loading
+            return LoadingShimmer();
+          }
           if (user == null) {
             return Center(
               child: Padding(

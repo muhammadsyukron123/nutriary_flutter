@@ -9,9 +9,15 @@ class GetUserProfileProvider extends ChangeNotifier {
   UserWithProfile? _userWithProfile;
   UserWithProfile? get userWithProfile => _userWithProfile;
 
+  bool _isLoading = false;
+
+  bool get isLoading => _isLoading;
+
   Future<void> getUserProfile() async {
     try{
+      _isLoading = true;
       _userWithProfile = await _getUserProfileUseCase.getUserWithProfileUseCase();
+      _isLoading = false;
       notifyListeners();
     } catch (e) {
       notifyListeners();
@@ -23,7 +29,9 @@ class GetUserProfileProvider extends ChangeNotifier {
 
   void refresh() {
     clear();
+    _isLoading = true;
     getUserProfile();
+    _isLoading = false;
     notifyListeners();
   }
 

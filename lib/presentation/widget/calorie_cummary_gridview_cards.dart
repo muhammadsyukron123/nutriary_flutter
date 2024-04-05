@@ -12,7 +12,11 @@ class CalorieSummaryGrid extends StatelessWidget {
     return Consumer<SummaryProvider>(
       builder: (context, summaryProvider, child) {
         var calorieSummary = summaryProvider.calorieSummary;
-
+        if (summaryProvider.isLoading) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
         return Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,

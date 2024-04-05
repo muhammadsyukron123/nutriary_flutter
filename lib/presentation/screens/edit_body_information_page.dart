@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../provider/get_user_profile_provider.dart';
 import '../provider/user_register_provider.dart';
+import '../utils/loading_shimmer.dart';
 
 class EditBodyInfoScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
@@ -46,6 +47,10 @@ class EditBodyInfoScreen extends StatelessWidget {
         _weightController.text = user?.weight.toString() ?? '';
         _selectedActivity = _activities.firstWhere((activity) => activity['name'] == user?.activityName, orElse: () => _activities[0]);
         _selectedGoal = _goals.firstWhere((goal) => goal['name'] == user?.targetGoal, orElse: () => _goals[0]);
+        if (provider.isLoading) {
+          // Show shimmer effect while loading
+          return LoadingShimmer();
+        }
 
         return Scaffold(
           appBar: AppBar(

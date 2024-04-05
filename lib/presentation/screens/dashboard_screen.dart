@@ -55,6 +55,11 @@ class DashboardScreen extends StatelessWidget {
             Consumer<SummaryProvider>(
                 builder: (context, summaryProvider, child) {
               var summary = summaryBox.get('summary');
+              if (summaryProvider.isLoading) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else
               if (summary == null) {
                 return Center(
                   child: Column(
