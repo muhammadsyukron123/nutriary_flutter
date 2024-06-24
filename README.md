@@ -12,7 +12,7 @@ Nutrition and Calorie Tracker app using Indonesia's food composition table from 
 
 **Server:** ASP.NET Web API
 
-
+If you want to run this project, you need to run the Backend Service using visual studio 2022 [here](https://github.com/muhammadsyukron123/NutriaryRESTServices) and change the endpoint inside of the flutter project to the localhost address 
 
 ## Authors
 
