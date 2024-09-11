@@ -24,7 +24,9 @@ import 'package:nutriary_flutter/presentation/provider/update_user_account_provi
 import 'package:nutriary_flutter/presentation/provider/user_register_provider.dart';
 import 'package:nutriary_flutter/presentation/screens/home_screen.dart';
 import 'package:nutriary_flutter/presentation/screens/splash_screen.dart';
+import 'package:nutriary_flutter/presentation/utils/my_http_override.dart';
 import 'package:provider/provider.dart';
+import 'dart:io';
 
 import 'data/datasource/local/user_hive_datasource.dart';
 import 'data/model/user/user.dart';
@@ -35,6 +37,8 @@ final getIt = GetIt.instance;
 void setup() {
   getIt.registerSingleton<AuthProvider>(AuthProvider(LoginUsecase()));
 }
+
+
 
 void main() async{
   setup();
@@ -47,7 +51,7 @@ void main() async{
 
   LoadFoodNameListProvider loadFoodNameListProvider = LoadFoodNameListProvider();
   loadFoodNameListProvider.loadFoodNameList();
-
+  HttpOverrides.global = MyHttpOverrides();
   runApp(const MyApp());
 }
 

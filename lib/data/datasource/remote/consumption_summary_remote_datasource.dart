@@ -9,7 +9,7 @@ import '../../model/summary/consumption_summary_model.dart';
 import '../../model/user/user.dart';
 
 class ConsumptionSummaryRemoteDataSource{
-  var baseUrl = 'https://app.actualsolusi.com/bsi/Nutriary/api/';
+  var baseUrl = 'https://192.168.1.165:7158/api/';
 
   Future<CalorieSummary> getConsumptionSummaryToday(int userId) async{
     var box = Hive.box<User>('userBox');

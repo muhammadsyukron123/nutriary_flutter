@@ -19,11 +19,11 @@ class StatusCalorieCard extends StatelessWidget {
           leading: summary.consumedCalories < summary.bmr
               ? Text(
             '😄',
-            style: TextStyle(fontSize: 50),
+            style: TextStyle(fontSize: 45),
           )
               : Text(
             '😱',
-            style: TextStyle(fontSize: 50),
+            style: TextStyle(fontSize: 45),
           ),
           title: summary.consumedCalories < summary.bmr
               ? Text(

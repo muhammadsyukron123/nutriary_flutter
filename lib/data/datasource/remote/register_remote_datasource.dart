@@ -6,7 +6,7 @@ import 'package:nutriary_flutter/data/model/user/user_register_response_model.da
 
 class RegisterRemoteDataSource {
   var _authRemoteDataSource = AuthRemoteDataSource();
-  var baseUrl = 'https://app.actualsolusi.com/bsi/Nutriary/api/';
+  var baseUrl = 'https://192.168.1.165:7158/api/';
 
   Future<UserRegisterReponse> register(UserRegister userRegister) async {
     var response = await http.post(Uri.parse(baseUrl + 'Users/Register'),

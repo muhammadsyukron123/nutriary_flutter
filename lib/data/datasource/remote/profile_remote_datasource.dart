@@ -9,7 +9,7 @@ import '../../model/user/user.dart';
 import '../../model/user/user_with_profile_model.dart';
 
 class ProfileRemoteDataSource{
-  var baseUrl = 'https://app.actualsolusi.com/bsi/Nutriary/api/';
+  var baseUrl = 'https://192.168.1.165:7158/api/';
 
   Future<void> insertUserProfile(CreateUserProfile createUserProfile) async {
     print('this is from insertprofile $createUserProfile');

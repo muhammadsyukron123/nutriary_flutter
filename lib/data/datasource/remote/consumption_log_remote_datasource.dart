@@ -10,7 +10,7 @@ import '../../model/user/user.dart';
 
 class ConsumptionLogRemoteDataSource{
   final String baseUrl =
-      'https://app.actualsolusi.com/bsi/Nutriary/api/';
+      'https://192.168.1.165:7158/api/';
 
   // get food log by id
   Future<List<ConsumptionLog>> getFoodLogByID(int id, DateTime logDate) async {

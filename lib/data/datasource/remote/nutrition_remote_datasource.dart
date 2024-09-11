@@ -9,7 +9,7 @@ import '../../model/user/user.dart';
 
 class NutritionRemoteDataSource {
   final String baseUrl =
-      'https://app.actualsolusi.com/bsi/Nutriary/api/';
+      'https://192.168.1.165:7158/api/';
 
   Future<List<FoodNutritionInfo>> getAllFoodNutrition() async {
     var response = await http.get(Uri.parse(baseUrl + 'FoodNutrition/GetAllFoodNutritionInfo/'));

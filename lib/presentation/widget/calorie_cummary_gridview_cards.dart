@@ -31,11 +31,11 @@ class CalorieSummaryGrid extends StatelessWidget {
                   leading: calorieSummary.consumedCalories < calorieSummary.bmr
                       ? Text(
                           '😄',
-                          style: TextStyle(fontSize: 50),
+                          style: TextStyle(fontSize: 45),
                         )
                       : Text(
                           '😱',
-                          style: TextStyle(fontSize: 50),
+                          style: TextStyle(fontSize: 45),
                         ),
                   title: calorieSummary.consumedCalories < calorieSummary.bmr
                       ? Text(
